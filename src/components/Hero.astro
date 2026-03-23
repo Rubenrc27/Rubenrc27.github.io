@@ -1,0 +1,184 @@
+---
+---
+<section class="hero" id="inicio">
+	<div class="blob-container">
+		<div class="blob b1"></div>
+		<div class="blob b2"></div>
+	</div>
+	<div class="hero-inner container">
+		<div class="hero-content">
+			<p class="hero-eyebrow">👋 Hola, soy</p>
+			<h1 class="hero-name"><span class="grad">Rubén</span><br />Rodríguez<br />Cazorla</h1>
+			<p class="hero-sub">Desarrollador <strong>Full Stack</strong> · España<br /><span>Java · React · Flutter · y más</span></p>
+			<div class="hero-btns">
+				<a href="https://github.com/Rubenrc27" target="_blank" class="btn btn-gh">GitHub</a>
+				<a href="https://www.linkedin.com/in/rub%C3%A9n-rodr%C3%ADguez-b52790237/" target="_blank" class="btn btn-li">LinkedIn</a>
+				<a href="mailto:ruben.rodriguez.cazorla@gmail.com" class="btn btn-em">Email</a>
+			</div>
+		</div>
+		<div class="hero-visual">
+			<div class="photo-ring"></div>
+			<!-- Placeholder for photo - user can replace it later or keep current base64 if they want -->
+			<!-- I'll use a stylized div for now since the original was a massive base64 -->
+			<div class="photo-placeholder">
+				<span class="initials">RRC</span>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero {
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		position: relative;
+		overflow: hidden;
+		padding-top: 5rem;
+	}
+	.blob-container {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		filter: blur(100px);
+		opacity: 0.15;
+		pointer-events: none;
+	}
+	.blob {
+		position: absolute;
+		border-radius: 50%;
+		animation: drift 20s infinite alternate ease-in-out;
+	}
+	.b1 {
+		width: 40vw;
+		height: 40vw;
+		background: var(--accent-4);
+		top: -10%;
+		right: -5%;
+	}
+	.b2 {
+		width: 30vw;
+		height: 30vw;
+		background: var(--accent-5);
+		bottom: 10%;
+		left: 5%;
+		animation-delay: -5s;
+	}
+	@keyframes drift {
+		from { transform: translate(0, 0) scale(1); }
+		to { transform: translate(50px, 50px) scale(1.1); }
+	}
+	.hero-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 4rem;
+		z-index: 1;
+	}
+	.hero-content {
+		flex: 1;
+	}
+	.hero-eyebrow {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: var(--accent-3);
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		margin-bottom: 1rem;
+	}
+	.hero-name {
+		font-size: clamp(3rem, 10vw, 6rem);
+		font-weight: 800;
+		line-height: 0.95;
+		margin-bottom: 1.5rem;
+	}
+	.grad {
+		background: linear-gradient(135deg, var(--accent-1), var(--accent-4));
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+	.hero-sub {
+		font-size: 1.25rem;
+		color: var(--muted);
+		margin-bottom: 2.5rem;
+	}
+	.hero-sub strong {
+		color: var(--text);
+	}
+	.hero-btns {
+		display: flex;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+	.btn {
+		padding: 0.8rem 1.6rem;
+		border-radius: 6px;
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		font-weight: 700;
+		transition: all 0.3s ease;
+	}
+	.btn-gh { background: var(--text); color: var(--bg); }
+	.btn-li { background: var(--accent-4); color: white; }
+	.btn-em { border: 1px solid var(--border); color: var(--text); }
+	.btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+
+	.hero-visual {
+		position: relative;
+		width: 350px;
+		height: 350px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.photo-placeholder {
+		width: 280px;
+		height: 280px;
+		background: var(--card);
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid var(--border);
+		z-index: 1;
+	}
+	.initials {
+		font-size: 4rem;
+		font-weight: 800;
+		color: var(--muted);
+		opacity: 0.5;
+	}
+	.photo-ring {
+		position: absolute;
+		inset: 0;
+		border: 1px solid rgba(255,255,255,0.05);
+		border-radius: 50%;
+		animation: spin 30s linear infinite;
+	}
+	.photo-ring::before {
+		content: '';
+		position: absolute;
+		top: -5px;
+		left: 50%;
+		width: 10px;
+		height: 10px;
+		background: var(--accent-2);
+		border-radius: 50%;
+		box-shadow: 0 0 15px var(--accent-2);
+	}
+	@keyframes spin {
+		from { transform: rotate(0deg); }
+		to { transform: rotate(360deg); }
+	}
+
+	@media (max-width: 900px) {
+		.hero-inner {
+			flex-direction: column-reverse;
+			text-align: center;
+			gap: 3rem;
+		}
+		.hero-btns { justify-content: center; }
+		.hero-visual { width: 250px; height: 250px; }
+		.photo-placeholder { width: 200px; height: 200px; }
+	}
+</style>

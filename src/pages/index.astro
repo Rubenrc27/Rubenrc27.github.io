@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Stack from '../components/Stack.astro';
+import Systems from '../components/Systems.astro';
+import Terminal from '../components/Terminal.astro';
+import Projects from '../components/Projects.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Rubén Rodríguez Cazorla · Full Stack Developer">
+	<Nav />
+	<main>
+		<Hero />
+		<div class="divider"></div>
+		<About />
+		<div class="divider"></div>
+		<Stack />
+		<div class="divider"></div>
+		<Systems />
+		<div class="divider"></div>
+		<Terminal />
+		<div class="divider"></div>
+		<Projects />
+		<div class="divider"></div>
+		<Contact />
+	</main>
+	<Footer />
+</Layout>
+
+<script>
+	// Simple Scroll Reveal
+	const observerOptions = {
+		threshold: 0.1
+	};
+
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				entry.target.classList.add('reveal-visible');
+			}
+		});
+	}, observerOptions);
+
+	document.querySelectorAll('section').forEach(section => {
+		section.classList.add('reveal');
+		observer.observe(section);
+	});
+</script>
+
+<style is:global>
+	.reveal {
+		opacity: 0;
+		transform: translateY(30px);
+		transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+	}
+	.reveal-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+</style>

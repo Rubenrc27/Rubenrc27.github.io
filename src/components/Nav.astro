@@ -1,0 +1,61 @@
+---
+---
+<nav>
+	<div class="nav-container">
+		<a href="/" class="nav-logo">rrc27@dev:~$</a>
+		<div class="nav-links">
+			<a href="#sobre-mi">sobre mí</a>
+			<a href="#stack">stack</a>
+			<a href="#sistemas">sistemas</a>
+			<a href="#proyectos">proyectos</a>
+			<a href="#contacto">contacto</a>
+		</div>
+	</div>
+</nav>
+
+<style>
+	nav {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 100;
+		background: rgba(10, 10, 15, 0.8);
+		backdrop-filter: blur(12px);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+	}
+	.nav-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 1rem 2rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.nav-logo {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: var(--accent-3);
+		letter-spacing: 0.1em;
+	}
+	.nav-links {
+		display: flex;
+		gap: 2rem;
+	}
+	.nav-links a {
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		color: var(--muted);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		transition: color 0.3s ease;
+	}
+	.nav-links a:hover {
+		color: var(--text);
+	}
+	@media (max-width: 800px) {
+		.nav-links {
+			display: none;
+		}
+	}
+</style>

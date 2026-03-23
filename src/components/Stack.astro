@@ -1,0 +1,87 @@
+---
+const categories = [
+	{
+		title: "★ mayor dominio",
+		skills: [
+			{ name: "Java", color: "red" },
+			{ name: "Hibernate", color: "pur" },
+			{ name: "SQL", color: "red" }
+		]
+	},
+	{
+		title: "◎ frontend & mobile",
+		skills: [
+			{ name: "React", color: "blue" },
+			{ name: "Next.js", color: "blue" },
+			{ name: "Flutter", color: "grn" },
+			{ name: "Expo", color: "yel" },
+			{ name: "TypeScript", color: "blue" }
+		]
+	},
+	{
+		title: "◎ backend, servicios & ia",
+		skills: [
+			{ name: "Python", color: "grn" },
+			{ name: "PHP", color: "red" },
+			{ name: "Firebase", color: "yel" },
+			{ name: "IA / LLMs", color: "pur" }
+		]
+	}
+];
+---
+<section id="stack">
+	<div class="container">
+		<span class="s-label">02 · stack técnico</span>
+		<h2 class="s-title">Tecnologías</h2>
+		<div class="stack-groups">
+			{categories.map(cat => (
+				<div class="stack-group">
+					<p class="group-label">{cat.title}</p>
+					<div class="pills">
+						{cat.skills.map(skill => (
+							<span class={`pill p-${skill.color}`}>{skill.name}</span>
+						))}
+					</div>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.stack-groups {
+		display: flex;
+		flex-direction: column;
+		gap: 3rem;
+	}
+	.group-label {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		color: var(--muted);
+		margin-bottom: 1.5rem;
+		letter-spacing: 0.1em;
+	}
+	.pills {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+	}
+	.pill {
+		padding: 0.6rem 1.4rem;
+		border-radius: 100px;
+		font-family: var(--font-mono);
+		font-size: 0.85rem;
+		font-weight: 700;
+		border: 1px solid transparent;
+		transition: all 0.3s ease;
+	}
+	.pill:hover {
+		transform: translateY(-4px) scale(1.05);
+	}
+	.p-red { color: var(--accent-1); border-color: var(--accent-1); background: rgba(255, 107, 107, 0.05); }
+	.p-yel { color: var(--accent-2); border-color: var(--accent-2); background: rgba(255, 217, 61, 0.05); }
+	.p-blue { color: var(--accent-4); border-color: var(--accent-4); background: rgba(77, 150, 255, 0.05); }
+	.p-grn { color: var(--accent-3); border-color: var(--accent-3); background: rgba(107, 203, 119, 0.05); }
+	.p-pur { color: var(--accent-5); border-color: var(--accent-5); background: rgba(199, 125, 255, 0.05); }
+</style>

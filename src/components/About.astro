@@ -1,0 +1,118 @@
+---
+---
+<section id="sobre-mi">
+	<div class="container">
+		<span class="s-label">01 · sobre mí</span>
+		<h2 class="s-title">Quién soy</h2>
+		<div class="about-grid">
+			<div class="about-text">
+				<p>Soy <strong>Rubén Rodríguez Cazorla</strong>, desarrollador Full Stack con formación en <strong>Sistemas Microinformáticos y Redes</strong> y <strong>Desarrollo de Aplicaciones Multiplataforma</strong>. Me gusta entender la tecnología de arriba a abajo: desde los circuitos y la red hasta la interfaz que ve el usuario.</p>
+				<p>Soy una persona <strong>alegre y curiosa</strong>, siempre con ganas de aprender y mejorar. Me motiva construir cosas que funcionen de verdad y resolver problemas con código bien pensado.</p>
+				<div class="chips">
+					<span class="chip">🚗 Coches</span>
+					<span class="chip">🏍️ Motos</span>
+					<span class="chip">💻 Tecnología</span>
+					<span class="chip">🔧 Hardware</span>
+					<span class="chip">🌐 Redes</span>
+				</div>
+			</div>
+			<div class="about-stats">
+				<div class="stat-card">
+					<span class="stat-value">2</span>
+					<span class="stat-label">CICLOS FORMATIVOS</span>
+				</div>
+				<div class="stat-card">
+					<span class="stat-value">3+</span>
+					<span class="stat-label">PROYECTOS PROPIOS</span>
+				</div>
+				<div class="stat-card">
+					<span class="stat-value">Full</span>
+					<span class="stat-label">STACK DEVELOPER</span>
+				</div>
+				<div class="stat-card">
+					<span class="stat-value">∞</span>
+					<span class="stat-label">GANAS DE APRENDER</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.about-grid {
+		display: grid;
+		grid-template-columns: 1.5fr 1fr;
+		gap: 4rem;
+		align-items: start;
+	}
+	.about-text p {
+		font-size: 1.1rem;
+		color: var(--muted);
+		margin-bottom: 1.5rem;
+		line-height: 1.8;
+	}
+	.about-text p strong {
+		color: var(--text);
+	}
+	.chips {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 2rem;
+	}
+	.chip {
+		padding: 0.5rem 1rem;
+		background: var(--card);
+		border: 1px solid var(--border);
+		border-radius: 100px;
+		font-size: 0.85rem;
+		color: var(--muted);
+		transition: all 0.3s ease;
+	}
+	.chip:hover {
+		border-color: var(--accent-3);
+		color: var(--text);
+		transform: translateY(-2px);
+	}
+	.about-stats {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.5rem;
+	}
+	.stat-card {
+		background: var(--card);
+		border: 1px solid var(--border);
+		padding: 1.5rem;
+		border-radius: 12px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		transition: all 0.3s ease;
+	}
+	.stat-card:hover {
+		border-color: var(--accent-4);
+		transform: translateY(-5px);
+	}
+	.stat-value {
+		font-size: 2.5rem;
+		font-weight: 800;
+		background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+	.stat-label {
+		font-family: var(--font-mono);
+		font-size: 0.65rem;
+		color: var(--muted);
+		margin-top: 0.5rem;
+		letter-spacing: 0.1em;
+	}
+
+	@media (max-width: 900px) {
+		.about-grid {
+			grid-template-columns: 1fr;
+			gap: 3rem;
+		}
+	}
+</style>

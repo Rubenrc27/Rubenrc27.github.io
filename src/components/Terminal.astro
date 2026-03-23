@@ -1,0 +1,186 @@
+---
+---
+<section>
+	<div class="container">
+		<span class="s-label">04 · terminal interactiva</span>
+		<h2 class="s-title">Háblame en consola</h2>
+		<div class="term-window">
+			<div class="term-header">
+				<div class="dots">
+					<span class="dot red"></span>
+					<span class="dot yellow"></span>
+					<span class="dot green"></span>
+				</div>
+				<span class="term-title">ruben@portfolio — bash</span>
+			</div>
+			<div class="term-content">
+				<div class="term-body" id="tOut">
+					<div class="line"><span class="prompt">ruben@portfolio:~$</span> <span class="cmd">whoami</span></div>
+					<div class="output">Rubén Rodríguez Cazorla — Full Stack Developer</div>
+					<div class="blank"></div>
+				</div>
+				<div class="term-input-line">
+					<span class="prompt">ruben@portfolio:~$</span>
+					<input type="text" id="tIn" placeholder="escribe un comando..." autofocus autocomplete="off" spellcheck="false" />
+				</div>
+			</div>
+			<div class="term-footer">
+				Prueba: <span class="hint">help</span> · <span class="hint">skills</span> · <span class="hint">proyectos</span> · <span class="hint">clear</span>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	const CMDS = {
+		help: () => [
+			"Comandos disponibles:",
+			"  help       → esta ayuda",
+			"  skills     → habilidades técnicas",
+			"  proyectos  → proyectos destacados",
+			"  clear      → limpia la terminal"
+		],
+		skills: () => [
+			"★ Sólido:     Java · Hibernate · SQL",
+			"◎ Frontend:   React · Next.js · TypeScript",
+			"◎ Mobile:     Flutter · Dart",
+			"◎ Backend:    Python · PHP · Firebase"
+		],
+		proyectos: () => [
+			"01 AppBackend TFG  → Java + Hibernate",
+			"02 PatitoApp       → Flutter · Dart",
+			"03 HoyAParco       → React · Next.js"
+		],
+		clear: () => 'CLEAR'
+	};
+
+	const tOut = document.getElementById('tOut');
+	const tIn = document.getElementById('tIn');
+
+	tIn.addEventListener('keydown', (e) => {
+		if (e.key === 'Enter') {
+			const raw = tIn.value.trim().toLowerCase();
+			tIn.value = '';
+			
+			// Add prompt line to history
+			const pLine = document.createElement('div');
+			pLine.className = 'line';
+			pLine.innerHTML = `<span class="prompt">ruben@portfolio:~$</span> <span class="cmd">${raw}</span>`;
+			tOut.appendChild(pLine);
+
+			if (raw) {
+				if (raw === 'clear') {
+					tOut.innerHTML = '';
+				} else if (CMDS[raw]) {
+					const lines = CMDS[raw]();
+					lines.forEach(l => {
+						const oLine = document.createElement('div');
+						oLine.className = 'output';
+						oLine.textContent = l;
+						tOut.appendChild(oLine);
+					});
+				} else {
+					const eLine = document.createElement('div');
+					eLine.className = 'output error';
+					eLine.textContent = `bash: ${raw}: command not found`;
+					tOut.appendChild(eLine);
+				}
+				const blank = document.createElement('div');
+				blank.className = 'blank';
+				tOut.appendChild(blank);
+			}
+			
+			// Scroll to bottom
+			tOut.scrollTop = tOut.scrollHeight;
+		}
+	});
+
+	// Keep focus on input when clicking terminal
+	document.querySelector('.term-content').addEventListener('click', () => {
+		tIn.focus();
+	});
+</script>
+
+<style>
+	.term-window {
+		background: #0d1117;
+		border: 1px solid #30363d;
+		border-radius: 12px;
+		overflow: hidden;
+		max-width: 1000px; /* Increased size */
+		margin: 0 auto;
+		box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+	}
+	.term-header {
+		background: #161b22;
+		padding: 0.85rem 1.5rem;
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		border-bottom: 1px solid #30363d;
+	}
+	.dots { display: flex; gap: 0.5rem; }
+	.dot { width: 12px; height: 12px; border-radius: 50%; }
+	.red { background: #ff5f56; }
+	.yellow { background: #ffbd2e; }
+	.green { background: #27c93f; }
+	.term-title {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		color: #8b949e;
+		letter-spacing: 0.05em;
+	}
+	.term-content {
+		padding: 2rem;
+		background: #0d1117;
+		cursor: text;
+	}
+	.term-body {
+		font-family: var(--font-mono);
+		font-size: 1rem;
+		min-height: 350px; /* Added minimum height to avoid "squashed" look */
+		max-height: 500px;
+		overflow-y: auto;
+		line-height: 1.6;
+	}
+	.term-input-line {
+		display: flex;
+		align-items: center;
+		font-family: var(--font-mono);
+		font-size: 1rem;
+		margin-top: 0.5rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.03); /* Subtle separator */
+		padding-top: 1rem;
+	}
+	.term-input-line input {
+		background: transparent;
+		border: none;
+		outline: none;
+		color: var(--accent-3); /* Command being typed is now green like the prompt */
+		flex: 1;
+		font-family: inherit;
+		font-size: inherit;
+		caret-color: var(--accent-2);
+	}
+	.prompt { color: var(--accent-3) !important; margin-right: 0.75rem; font-weight: bold; }
+	.cmd { color: var(--accent-3) !important; font-weight: bold; } /* Commands in history are now green/bold */
+	.output { color: var(--text); padding-left: 1.25rem; margin-bottom: 0.25rem; opacity: 0.8; } /* Output is white/subtle */
+	.error { color: var(--accent-1); font-weight: bold; }
+	.blank { height: 1rem; }
+	
+	.term-footer {
+		padding: 1rem 2rem;
+		background: rgba(0,0,0,0.3);
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		color: #484f58;
+		border-top: 1px solid #21262d;
+	}
+	.hint { color: var(--accent-2); }
+
+	/* Scrollbar styling */
+	.term-body::-webkit-scrollbar { width: 8px; }
+	.term-body::-webkit-scrollbar-track { background: transparent; }
+	.term-body::-webkit-scrollbar-thumb { background: #30363d; border-radius: 10px; }
+	.term-body::-webkit-scrollbar-thumb:hover { background: #484f58; }
+</style>

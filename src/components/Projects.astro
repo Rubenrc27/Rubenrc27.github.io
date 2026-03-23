@@ -1,0 +1,125 @@
+---
+const projects = [
+	{
+		num: "01",
+		name: "AppBackend TFG",
+		desc: "Backend completo desarrollado con Java e Hibernate. API robusta con gestión de persistencia y arquitectura limpia.",
+		tags: ["Java", "Hibernate", "REST API", "SQL"],
+		link: "https://github.com/Rubenrc27",
+		color: "blue"
+	},
+	{
+		num: "02",
+		name: "PatitoApp",
+		desc: "Aplicación móvil multiplataforma con Flutter. Interfaz intuitiva y fluida que cubre la experiencia de usuario completa.",
+		tags: ["Flutter", "Dart", "Mobile", "TFG"],
+		link: "https://github.com/Rubenrc27",
+		color: "grn"
+	},
+	{
+		num: "03",
+		name: "HoyAParco",
+		desc: "Monorepo React que conecta conductores que buscan aparcamiento. Solución real con arquitectura escalable.",
+		tags: ["React", "Next.js", "TypeScript", "Monorepo"],
+		link: "https://github.com/Rubenrc27",
+		color: "yel"
+	}
+];
+---
+<section id="proyectos">
+	<div class="container">
+		<span class="s-label">05 · proyectos</span>
+		<h2 class="s-title">Lo que he construido</h2>
+		<div class="proj-grid">
+			{projects.map(proj => (
+				<div class={`proj-card border-${proj.color}`}>
+					<span class="proj-num">// {proj.num}</span>
+					<h3 class={`proj-name text-${proj.color}`}>{proj.name}</h3>
+					<p class="proj-desc">{proj.desc}</p>
+					<div class="proj-tags">
+						{proj.tags.map(tag => <span class="proj-tag">{tag}</span>)}
+					</div>
+					<a href={proj.link} target="_blank" class="proj-link">Ver en GitHub →</a>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.proj-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+	}
+	.proj-card {
+		background: var(--card);
+		border: 1px solid var(--border);
+		padding: 2rem;
+		border-radius: 12px;
+		display: flex;
+		flex-direction: column;
+		transition: all 0.3s ease;
+		position: relative;
+	}
+	.proj-card:hover {
+		transform: translateY(-8px);
+		box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+	}
+	.proj-card::before {
+		content: '';
+		position: absolute;
+		top: 0; left: 0; right: 0; height: 2px;
+		border-radius: 12px 12px 0 0;
+	}
+	.border-blue::before { background: var(--accent-4); }
+	.border-grn::before { background: var(--accent-3); }
+	.border-yel::before { background: var(--accent-2); }
+
+	.proj-num {
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		color: var(--muted);
+		margin-bottom: 1rem;
+	}
+	.proj-name {
+		font-size: 1.5rem;
+		font-weight: 800;
+		margin-bottom: 1rem;
+	}
+	.text-blue { color: var(--accent-4); }
+	.text-grn { color: var(--accent-3); }
+	.text-yel { color: var(--accent-2); }
+
+	.proj-desc {
+		color: var(--muted);
+		font-size: 0.95rem;
+		line-height: 1.6;
+		margin-bottom: 2rem;
+		flex: 1;
+	}
+	.proj-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-bottom: 1.5rem;
+	}
+	.proj-tag {
+		font-family: var(--font-mono);
+		font-size: 0.65rem;
+		background: var(--surface);
+		color: var(--muted);
+		padding: 0.25rem 0.6rem;
+		border-radius: 4px;
+	}
+	.proj-link {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: var(--text);
+		font-weight: 700;
+		transition: color 0.3s ease;
+	}
+	.proj-link:hover {
+		color: var(--accent-4);
+	}
+</style>

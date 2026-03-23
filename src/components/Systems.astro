@@ -1,0 +1,60 @@
+---
+const systems = [
+	{ icon: "🖥️", name: "Terminal / CLI", desc: "Bash, navegación, scripting, gestión de procesos y permisos. La terminal es mi zona de confort." },
+	{ icon: "⚙️", name: "Webmin", desc: "Administración de servidores Linux. Gestión de servicios, usuarios y configuraciones del sistema." },
+	{ icon: "🔌", name: "Redes", desc: "TCP/IP, DNS, DHCP, subnetting y configuración de redes. Base sólida del ciclo SMR." },
+	{ icon: "🔧", name: "Hardware", desc: "Montaje, diagnóstico y mantenimiento de equipos. Cómodo tanto a nivel físico como de sistema." }
+];
+---
+<section id="sistemas" class="s-alt">
+	<div class="container">
+		<span class="s-label">03 · sistemas & redes</span>
+		<h2 class="s-title">Más allá del código</h2>
+		<div class="sys-grid">
+			{systems.map(sys => (
+				<div class="sys-card">
+					<div class="sys-icon">{sys.icon}</div>
+					<h3 class="sys-name">{sys.name}</h3>
+					<p class="sys-desc">{sys.desc}</p>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.s-alt {
+		background: var(--surface);
+	}
+	.sys-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 2rem;
+	}
+	.sys-card {
+		background: var(--card);
+		border: 1px solid var(--border);
+		padding: 2rem;
+		border-radius: 12px;
+		transition: all 0.3s ease;
+	}
+	.sys-card:hover {
+		border-color: var(--accent-3);
+		transform: translateY(-5px);
+	}
+	.sys-icon {
+		font-size: 2rem;
+		margin-bottom: 1rem;
+	}
+	.sys-name {
+		font-size: 1.1rem;
+		font-weight: 700;
+		margin-bottom: 0.75rem;
+	}
+	.sys-desc {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: var(--muted);
+		line-height: 1.6;
+	}
+</style>

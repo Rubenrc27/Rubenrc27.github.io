@@ -1,0 +1,49 @@
+---
+---
+<footer>
+	<div class="container foot-grid">
+		<div class="foot-left">
+			<span class="foot-name">Rubén Rodríguez Cazorla</span>
+			<span class="foot-mono">Full Stack Developer · España</span>
+		</div>
+		<div class="foot-right">
+			<span class="foot-mono">Hecho con 💛 · 2026</span>
+			<a href="https://github.com/Rubenrc27" target="_blank" class="foot-mono link">github.com/Rubenrc27</a>
+		</div>
+	</div>
+</footer>
+
+<style>
+	footer {
+		padding: 3rem 0;
+		border-top: 1px solid var(--border);
+	}
+	.foot-grid {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 2rem;
+	}
+	.foot-name {
+		display: block;
+		font-weight: 800;
+		font-size: 1.1rem;
+		margin-bottom: 0.25rem;
+	}
+	.foot-mono {
+		display: block;
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		color: var(--muted);
+	}
+	.link:hover {
+		color: var(--text);
+	}
+	.foot-right {
+		text-align: right;
+	}
+	@media (max-width: 600px) {
+		.foot-grid { flex-direction: column; text-align: center; gap: 2rem; }
+		.foot-right { text-align: center; }
+	}
+</style>
