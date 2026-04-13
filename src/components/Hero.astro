@@ -21,7 +21,7 @@
 			<!-- Placeholder for photo - user can replace it later or keep current base64 if they want -->
 			<!-- I'll use a stylized div for now since the original was a massive base64 -->
 			<div class="photo-placeholder">
-				<span class="initials">RRC</span>
+				<img src="/me.jpg" alt="Rubén Rodríguez Cazorla" class="profile-img" />
 			</div>
 		</div>
 	</div>
@@ -141,12 +141,18 @@
 		justify-content: center;
 		border: 1px solid var(--border);
 		z-index: 1;
+		overflow: hidden; /* Added to clip the image */
 	}
-	.initials {
-		font-size: 4rem;
-		font-weight: 800;
-		color: var(--muted);
-		opacity: 0.5;
+	.profile-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		border-radius: 50%;
+		transition: transform 0.3s ease;
+	}
+	.profile-img:hover {
+		transform: scale(1.05);
 	}
 	.photo-ring {
 		position: absolute;
@@ -176,9 +182,22 @@
 			flex-direction: column-reverse;
 			text-align: center;
 			gap: 3rem;
+			width: 100%;
 		}
-		.hero-btns { justify-content: center; }
-		.hero-visual { width: 250px; height: 250px; }
-		.photo-placeholder { width: 200px; height: 200px; }
+		.hero-content {
+			width: 100%;
+		}
+		.hero-btns { 
+			justify-content: center; 
+		}
+		.hero-visual { 
+			width: 250px; 
+			height: 250px;
+			margin: 0 auto;
+		}
+		.photo-placeholder { 
+			width: 200px; 
+			height: 200px; 
+		}
 	}
 </style>

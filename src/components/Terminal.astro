@@ -107,7 +107,7 @@
 		border: 1px solid #30363d;
 		border-radius: 12px;
 		overflow: hidden;
-		max-width: 1000px; /* Increased size */
+		max-width: 1000px;
 		margin: 0 auto;
 		box-shadow: 0 30px 80px rgba(0,0,0,0.6);
 	}
@@ -138,7 +138,7 @@
 	.term-body {
 		font-family: var(--font-mono);
 		font-size: 1rem;
-		min-height: 350px; /* Added minimum height to avoid "squashed" look */
+		min-height: 350px;
 		max-height: 500px;
 		overflow-y: auto;
 		line-height: 1.6;
@@ -149,22 +149,23 @@
 		font-family: var(--font-mono);
 		font-size: 1rem;
 		margin-top: 0.5rem;
-		border-top: 1px solid rgba(255, 255, 255, 0.03); /* Subtle separator */
+		border-top: 1px solid rgba(255, 255, 255, 0.03);
 		padding-top: 1rem;
 	}
 	.term-input-line input {
 		background: transparent;
 		border: none;
 		outline: none;
-		color: var(--accent-3); /* Command being typed is now green like the prompt */
+		color: var(--accent-3);
 		flex: 1;
 		font-family: inherit;
 		font-size: inherit;
 		caret-color: var(--accent-2);
+		min-width: 0;
 	}
-	.prompt { color: var(--accent-3) !important; margin-right: 0.75rem; font-weight: bold; }
-	.cmd { color: var(--accent-3) !important; font-weight: bold; } /* Commands in history are now green/bold */
-	.output { color: var(--text); padding-left: 1.25rem; margin-bottom: 0.25rem; opacity: 0.8; } /* Output is white/subtle */
+	.prompt { color: var(--accent-3) !important; margin-right: 0.75rem; font-weight: bold; flex-shrink: 0; }
+	.cmd { color: var(--accent-3) !important; font-weight: bold; }
+	.output { color: var(--text); padding-left: 1.25rem; margin-bottom: 0.25rem; opacity: 0.8; }
 	.error { color: var(--accent-1); font-weight: bold; }
 	.blank { height: 1rem; }
 	
@@ -183,4 +184,24 @@
 	.term-body::-webkit-scrollbar-track { background: transparent; }
 	.term-body::-webkit-scrollbar-thumb { background: #30363d; border-radius: 10px; }
 	.term-body::-webkit-scrollbar-thumb:hover { background: #484f58; }
+
+	@media (max-width: 600px) {
+		.term-content {
+			padding: 1rem;
+		}
+		.term-body {
+			font-size: 0.85rem;
+			min-height: 250px;
+		}
+		.term-input-line {
+			font-size: 0.85rem;
+		}
+		.prompt {
+			margin-right: 0.5rem;
+		}
+		.term-footer {
+			padding: 0.75rem 1rem;
+			font-size: 0.6rem;
+		}
+	}
 </style>
