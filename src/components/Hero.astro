@@ -11,6 +11,7 @@
 			<h1 class="hero-name"><span class="grad">Rubén</span><br />Rodríguez<br />Cazorla</h1>
 			<p class="hero-sub">Desarrollador <strong>Full Stack</strong> · España<br /><span>Java · React · Flutter · y más</span></p>
 			<div class="hero-btns">
+				<a href="/cv.pdf" download class="btn btn-cv">Descargar CV</a>
 				<a href="https://github.com/Rubenrc27" target="_blank" class="btn btn-gh">GitHub</a>
 				<a href="https://www.linkedin.com/in/rub%C3%A9n-rodr%C3%ADguez-b52790237/" target="_blank" class="btn btn-li">LinkedIn</a>
 				<a href="mailto:ruben.rodriguez.cazorla@gmail.com" class="btn btn-em">Email</a>
@@ -87,7 +88,7 @@
 		margin-bottom: 1rem;
 	}
 	.hero-name {
-		font-size: clamp(3rem, 10vw, 6rem);
+		font-size: clamp(2.5rem, 10vw, 6rem);
 		font-weight: 800;
 		line-height: 0.95;
 		margin-bottom: 1.5rem;
@@ -119,6 +120,7 @@
 		transition: all 0.3s ease;
 	}
 	.btn-gh { background: var(--text); color: var(--bg); }
+	.btn-cv { background: var(--accent-2); color: #0a0a0f; }
 	.btn-li { background: var(--accent-4); color: white; }
 	.btn-em { border: 1px solid var(--border); color: var(--text); }
 	.btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
@@ -186,6 +188,9 @@
 		}
 		.hero-content {
 			width: 100%;
+		}
+		.hero-name {
+			font-size: clamp(1.8rem, 9vw, 4rem);
 		}
 		.hero-btns { 
 			justify-content: center; 

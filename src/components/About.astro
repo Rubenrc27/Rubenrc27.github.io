@@ -8,6 +8,7 @@
 			<div class="about-text">
 				<p>Soy <strong>Rubén Rodríguez Cazorla</strong>, desarrollador Full Stack con formación en <strong>Sistemas Microinformáticos y Redes</strong> y <strong>Desarrollo de Aplicaciones Multiplataforma</strong>. Me gusta entender la tecnología de arriba a abajo: desde los circuitos y la red hasta la interfaz que ve el usuario.</p>
 				<p>Soy una persona <strong>alegre y curiosa</strong>, siempre con ganas de aprender y mejorar. Me motiva construir cosas que funcionen de verdad y resolver problemas con código bien pensado.</p>
+				<a href="/cv.pdf" download class="btn-about-cv">Descargar mi CV (PDF)</a>
 				<div class="chips">
 					<span class="chip">🚗 Coches</span>
 					<span class="chip">🏍️ Motos</span>
@@ -53,6 +54,26 @@
 	}
 	.about-text p strong {
 		color: var(--text);
+	}
+	.btn-about-cv {
+		display: inline-block;
+		margin-top: 0.5rem;
+		padding: 0.6rem 1.2rem;
+		background: transparent;
+		border: 1px solid var(--accent-2);
+		color: var(--accent-2);
+		border-radius: 6px;
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		font-weight: 700;
+		text-decoration: none;
+		transition: all 0.3s ease;
+	}
+	.btn-about-cv:hover {
+		background: var(--accent-2);
+		color: #000;
+		box-shadow: 0 0 20px rgba(255, 217, 61, 0.2);
+		transform: translateY(-2px);
 	}
 	.chips {
 		display: flex;
