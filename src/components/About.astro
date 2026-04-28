@@ -1,38 +1,42 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 <section id="sobre-mi">
 	<div class="container">
-		<span class="s-label">01 · sobre mí</span>
-		<h2 class="s-title">Quién soy</h2>
+		<span class="s-label">{t('about.label')}</span>
+		<h2 class="s-title">{t('about.title')}</h2>
 		<div class="about-grid">
 			<div class="about-text">
-				<p>Soy <strong>Rubén Rodríguez Cazorla</strong>, desarrollador Full Stack con formación en <strong>Sistemas Microinformáticos y Redes</strong> y <strong>Desarrollo de Aplicaciones Multiplataforma</strong>. Me gusta entender la tecnología de arriba a abajo: desde los circuitos y la red hasta la interfaz que ve el usuario.</p>
-				<p>Soy una persona <strong>alegre y curiosa</strong>, siempre con ganas de aprender y mejorar. Me motiva construir cosas que funcionen de verdad y resolver problemas con código bien pensado.</p>
-				<a href="/cv.pdf" download class="btn-about-cv">Descargar mi CV (PDF)</a>
+				<p><Fragment set:html={t('about.p1')} /></p>
+				<p><Fragment set:html={t('about.p2')} /></p>
+				<a href="/cv.pdf" download class="btn-about-cv">{t('about.cv')}</a>
 				<div class="chips">
-					<span class="chip">🚗 Coches</span>
-					<span class="chip">🏍️ Motos</span>
-					<span class="chip">💻 Tecnología</span>
-					<span class="chip">🔧 Hardware</span>
-					<span class="chip">🌐 Redes</span>
+					<span class="chip">{t('about.chip.cars')}</span>
+					<span class="chip">{t('about.chip.bikes')}</span>
+					<span class="chip">{t('about.chip.tech')}</span>
+					<span class="chip">{t('about.chip.hardware')}</span>
+					<span class="chip">{t('about.chip.networks')}</span>
 				</div>
 			</div>
 			<div class="about-stats">
 				<div class="stat-card">
 					<span class="stat-value">2</span>
-					<span class="stat-label">CICLOS FORMATIVOS</span>
+					<span class="stat-label">{t('about.stat.cycles')}</span>
 				</div>
 				<div class="stat-card">
 					<span class="stat-value">3+</span>
-					<span class="stat-label">PROYECTOS PROPIOS</span>
+					<span class="stat-label">{t('about.stat.projects')}</span>
 				</div>
 				<div class="stat-card">
 					<span class="stat-value">Full</span>
-					<span class="stat-label">STACK DEVELOPER</span>
+					<span class="stat-label">{t('about.stat.stack')}</span>
 				</div>
 				<div class="stat-card">
 					<span class="stat-value">∞</span>
-					<span class="stat-label">GANAS DE APRENDER</span>
+					<span class="stat-label">{t('about.stat.learning')}</span>
 				</div>
 			</div>
 		</div>

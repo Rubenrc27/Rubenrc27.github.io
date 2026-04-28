@@ -1,13 +1,17 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 <section id="contacto" class="s-alt">
 	<div class="container">
-		<span class="s-label">06 · contacto</span>
-		<h2 class="s-title">Hablamos</h2>
+		<span class="s-label">{t('contact.label')}</span>
+		<h2 class="s-title">{t('contact.title')}</h2>
 		<div class="contact-grid">
 			<div class="contact-text">
-				<p>Si tienes un proyecto interesante, una oferta de trabajo o simplemente quieres hablar de tecnología, coches o lo que sea — <strong>escríbeme sin problema</strong>.</p>
-				<p>Estoy abierto a nuevas oportunidades y siempre dispuesto a aprender de nuevos entornos y equipos.</p>
+				<p><Fragment set:html={t('contact.p1')} /></p>
+				<p>{t('contact.p2')}</p>
 			</div>
 			<div class="contact-links">
 				<a href="https://github.com/Rubenrc27" target="_blank" class="contact-card">

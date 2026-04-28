@@ -1,4 +1,8 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 <section class="hero" id="inicio">
 	<div class="blob-container">
@@ -7,11 +11,11 @@
 	</div>
 	<div class="hero-inner container">
 		<div class="hero-content">
-			<p class="hero-eyebrow">👋 Hola, soy</p>
+			<p class="hero-eyebrow">{t('hero.greeting')}</p>
 			<h1 class="hero-name"><span class="grad">Rubén</span><br />Rodríguez<br />Cazorla</h1>
-			<p class="hero-sub">Desarrollador <strong>Full Stack</strong> · España<br /><span>Java · React · Flutter · y más</span></p>
+			<p class="hero-sub"><Fragment set:html={t('hero.subtitle')} /><br /><span>Java · React · Flutter · y más</span></p>
 			<div class="hero-btns">
-				<a href="/cv.pdf" download class="btn btn-cv">Descargar CV</a>
+				<a href="/cv.pdf" download class="btn btn-cv">{t('hero.cv')}</a>
 				<a href="https://github.com/Rubenrc27" target="_blank" class="btn btn-gh">GitHub</a>
 				<a href="https://www.linkedin.com/in/rub%C3%A9n-rodr%C3%ADguez-b52790237/" target="_blank" class="btn btn-li">LinkedIn</a>
 				<a href="mailto:ruben.rodriguez.cazorla@gmail.com" class="btn btn-em">Email</a>

@@ -1,15 +1,20 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const systems = [
-	{ icon: "🖥️", name: "Terminal / CLI", desc: "Bash, navegación, scripting, gestión de procesos y permisos. La terminal es mi zona de confort." },
-	{ icon: "⚙️", name: "Webmin", desc: "Administración de servidores Linux. Gestión de servicios, usuarios y configuraciones del sistema." },
-	{ icon: "🔌", name: "Redes", desc: "TCP/IP, DNS, DHCP, subnetting y configuración de redes. Base sólida del ciclo SMR." },
-	{ icon: "🔧", name: "Hardware", desc: "Montaje, diagnóstico y mantenimiento de equipos. Cómodo tanto a nivel físico como de sistema." }
+	{ icon: "🖥️", name: t('systems.term.name'), desc: t('systems.term.desc') },
+	{ icon: "⚙️", name: t('systems.webmin.name'), desc: t('systems.webmin.desc') },
+	{ icon: "🔌", name: t('systems.networks.name'), desc: t('systems.networks.desc') },
+	{ icon: "🔧", name: t('systems.hardware.name'), desc: t('systems.hardware.desc') }
 ];
 ---
 <section id="sistemas" class="s-alt">
 	<div class="container">
-		<span class="s-label">03 · sistemas & redes</span>
-		<h2 class="s-title">Más allá del código</h2>
+		<span class="s-label">{t('systems.label')}</span>
+		<h2 class="s-title">{t('systems.title')}</h2>
 		<div class="sys-grid">
 			{systems.map(sys => (
 				<div class="sys-card">

@@ -1,19 +1,43 @@
 ---
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+import { languages } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
 ---
 <nav>
 	<div class="nav-container">
-		<a href="/" class="nav-logo">rrc27@dev:~$</a>
-		<button class="mobile-toggle" aria-label="Abrir menú">
-			<span class="bar"></span>
-			<span class="bar"></span>
-			<span class="bar"></span>
-		</button>
-		<div class="nav-links">
-			<a href="#sobre-mi">sobre mí</a>
-			<a href="#stack">stack</a>
-			<a href="#sistemas">sistemas</a>
-			<a href="#proyectos">proyectos</a>
-			<a href="#contacto">contacto</a>
+		<a href={translatePath('/')} class="nav-logo">rrc27@dev:~$</a>
+		
+		<div class="nav-right">
+			<div class="lang-dropdown">
+				<button class="drop-btn" aria-label="Cambiar idioma">
+					{lang.toUpperCase()}
+					<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+				</button>
+				<div class="dropdown-content">
+					{Object.entries(languages).map(([code, label]) => (
+						<a href={`/${code}/`} class={lang === code ? 'active' : ''}>
+							<span class="lang-code">{code.toUpperCase()}</span>
+							<span class="lang-label">{label}</span>
+						</a>
+					))}
+				</div>
+			</div>
+
+			<button class="mobile-toggle" aria-label="Abrir menú">
+				<span class="bar"></span>
+				<span class="bar"></span>
+				<span class="bar"></span>
+			</button>
+			<div class="nav-links">
+				<a href="#sobre-mi">{t('nav.about')}</a>
+				<a href="#stack">{t('nav.stack')}</a>
+				<a href="#sistemas">{t('nav.systems')}</a>
+				<a href="#proyectos">{t('nav.projects')}</a>
+				<a href="#contacto">{t('nav.contact')}</a>
+			</div>
 		</div>
 	</div>
 </nav>
@@ -64,6 +88,11 @@
 		letter-spacing: 0.1em;
 		z-index: 101;
 	}
+	.nav-right {
+		display: flex;
+		align-items: center;
+		gap: 2rem;
+	}
 	.nav-links {
 		display: flex;
 		gap: 2rem;
@@ -78,6 +107,104 @@
 	}
 	.nav-links a:hover {
 		color: var(--text);
+	}
+
+	.lang-dropdown {
+		position: relative;
+		display: inline-block;
+	}
+
+	.drop-btn {
+		background: rgba(255, 255, 255, 0.03);
+		border: 1px solid var(--border);
+		color: var(--text);
+		padding: 0.5rem 0.8rem;
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		font-weight: 700;
+		border-radius: 6px;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		transition: all 0.3s ease;
+	}
+
+	.drop-btn svg {
+		transition: transform 0.3s ease;
+		color: var(--muted);
+	}
+
+	.lang-dropdown:hover .drop-btn {
+		border-color: var(--accent-2);
+		background: rgba(255, 255, 255, 0.06);
+	}
+
+	.lang-dropdown:hover .drop-btn svg {
+		transform: rotate(180deg);
+		color: var(--accent-2);
+	}
+
+	.dropdown-content {
+		position: absolute;
+		top: 100%;
+		right: 0;
+		margin-top: 0.5rem;
+		background: var(--card);
+		border: 1px solid var(--border);
+		border-radius: 8px;
+		min-width: 140px;
+		box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(10px);
+		transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+		z-index: 1000;
+		overflow: hidden;
+	}
+
+	.lang-dropdown:hover .dropdown-content {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+	}
+
+	.dropdown-content a {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.8rem 1rem;
+		text-decoration: none;
+		font-family: var(--font-mono);
+		transition: background 0.2s ease;
+	}
+
+	.dropdown-content a:hover {
+		background: rgba(255, 255, 255, 0.05);
+	}
+
+	.dropdown-content a.active {
+		background: rgba(255, 217, 61, 0.05);
+		color: var(--accent-2) !important;
+	}
+
+	.lang-code {
+		font-size: 0.65rem;
+		font-weight: 800;
+		padding: 0.1rem 0.3rem;
+		background: rgba(255,255,255,0.05);
+		border-radius: 4px;
+		color: var(--muted);
+	}
+
+	.active .lang-code {
+		background: var(--accent-2);
+		color: #000;
+	}
+
+	.lang-label {
+		font-size: 0.75rem;
+		font-family: var(--font-main);
 	}
 
 	.mobile-toggle {
@@ -123,6 +250,9 @@
 		}
 		.nav-links a {
 			font-size: 1.2rem;
+		}
+		.nav-right {
+			gap: 1rem;
 		}
 	}
 </style>

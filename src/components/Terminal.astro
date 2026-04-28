@@ -1,9 +1,35 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const terminalData = {
+	help: {
+		title: t('terminal.help.title'),
+		help: t('terminal.help.h'),
+		skills: t('terminal.help.s'),
+		projects: t('terminal.help.p'),
+		clear: t('terminal.help.c'),
+	},
+	skills: [
+		"★ Sólido:     Java · Hibernate · SQL",
+		"◎ Frontend:   React · Next.js · TypeScript",
+		"◎ Mobile:     Flutter · Dart",
+		"◎ Backend:    Python · PHP · Firebase"
+	],
+	proyectos: [
+		"01 AppBackend TFG  → Java + Hibernate",
+		"02 PatitoApp       → Flutter · Dart",
+		"03 HoyAParco       → React · Next.js"
+	],
+	whoami: "Rubén Rodríguez Cazorla — Full Stack Developer"
+};
 ---
 <section>
 	<div class="container">
-		<span class="s-label">04 · terminal interactiva</span>
-		<h2 class="s-title">Háblame en consola</h2>
+		<span class="s-label">{t('terminal.label')}</span>
+		<h2 class="s-title">{t('terminal.title')}</h2>
 		<div class="term-window">
 			<div class="term-header">
 				<div class="dots">
@@ -13,49 +39,43 @@
 				</div>
 				<span class="term-title">ruben@portfolio — bash</span>
 			</div>
-			<div class="term-content">
+			<div class="term-content" data-lang={lang} data-terminal={JSON.stringify(terminalData)}>
 				<div class="term-body" id="tOut">
 					<div class="line"><span class="prompt">ruben@portfolio:~$</span> <span class="cmd">whoami</span></div>
-					<div class="output">Rubén Rodríguez Cazorla — Full Stack Developer</div>
+					<div class="output">{terminalData.whoami}</div>
 					<div class="blank"></div>
 				</div>
 				<div class="term-input-line">
 					<span class="prompt">ruben@portfolio:~$</span>
-					<input type="text" id="tIn" placeholder="escribe un comando..." autocomplete="off" spellcheck="false" />
+					<input type="text" id="tIn" placeholder={t('terminal.placeholder')} autocomplete="off" spellcheck="false" />
 				</div>
 			</div>
 			<div class="term-footer">
-				Prueba: <span class="hint">help</span> · <span class="hint">skills</span> · <span class="hint">proyectos</span> · <span class="hint">clear</span>
+				{t('terminal.footer')} <span class="hint">help</span> · <span class="hint">skills</span> · <span class="hint">proyectos</span> · <span class="hint">clear</span>
 			</div>
 		</div>
 	</div>
 </section>
 
 <script>
-	const CMDS = {
+	const termContainer = document.querySelector('.term-content') as HTMLElement;
+	const terminalData = JSON.parse(termContainer.dataset.terminal || '{}');
+
+	const CMDS: Record<string, () => string[]> = {
 		help: () => [
-			"Comandos disponibles:",
-			"  help       → esta ayuda",
-			"  skills     → habilidades técnicas",
-			"  proyectos  → proyectos destacados",
-			"  clear      → limpia la terminal"
+			terminalData.help.title,
+			`  help       ${terminalData.help.help}`,
+			`  skills     ${terminalData.help.skills}`,
+			`  proyectos  ${terminalData.help.projects}`,
+			`  clear      ${terminalData.help.clear}`
 		],
-		skills: () => [
-			"★ Sólido:     Java · Hibernate · SQL",
-			"◎ Frontend:   React · Next.js · TypeScript",
-			"◎ Mobile:     Flutter · Dart",
-			"◎ Backend:    Python · PHP · Firebase"
-		],
-		proyectos: () => [
-			"01 AppBackend TFG  → Java + Hibernate",
-			"02 PatitoApp       → Flutter · Dart",
-			"03 HoyAParco       → React · Next.js"
-		],
-		clear: () => 'CLEAR'
+		skills: () => terminalData.skills,
+		proyectos: () => terminalData.proyectos,
+		clear: () => ['CLEAR']
 	};
 
 	const tOut = document.getElementById('tOut');
-	const tIn = document.getElementById('tIn');
+	const tIn = document.getElementById('tIn') as HTMLInputElement;
 
 	tIn.addEventListener('keydown', (e) => {
 		if (e.key === 'Enter') {
@@ -66,37 +86,37 @@
 			const pLine = document.createElement('div');
 			pLine.className = 'line';
 			pLine.innerHTML = `<span class="prompt">ruben@portfolio:~$</span> <span class="cmd">${raw}</span>`;
-			tOut.appendChild(pLine);
+			tOut?.appendChild(pLine);
 
 			if (raw) {
 				if (raw === 'clear') {
-					tOut.innerHTML = '';
+					if (tOut) tOut.innerHTML = '';
 				} else if (CMDS[raw]) {
 					const lines = CMDS[raw]();
 					lines.forEach(l => {
 						const oLine = document.createElement('div');
 						oLine.className = 'output';
 						oLine.textContent = l;
-						tOut.appendChild(oLine);
+						tOut?.appendChild(oLine);
 					});
 				} else {
 					const eLine = document.createElement('div');
 					eLine.className = 'output error';
 					eLine.textContent = `bash: ${raw}: command not found`;
-					tOut.appendChild(eLine);
+					tOut?.appendChild(eLine);
 				}
 				const blank = document.createElement('div');
 				blank.className = 'blank';
-				tOut.appendChild(blank);
+				tOut?.appendChild(blank);
 			}
 			
 			// Scroll to bottom
-			tOut.scrollTop = tOut.scrollHeight;
+			if (tOut) tOut.scrollTop = tOut.scrollHeight;
 		}
 	});
 
 	// Keep focus on input when clicking terminal
-	document.querySelector('.term-content').addEventListener('click', () => {
+	document.querySelector('.term-content')?.addEventListener('click', () => {
 		tIn.focus();
 	});
 </script>

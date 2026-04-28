@@ -1,7 +1,12 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const categories = [
 	{
-		title: "★ mayor dominio",
+		title: t('stack.cat1'),
 		skills: [
 			{ name: "Java", color: "red" },
 			{ name: "Hibernate", color: "pur" },
@@ -9,7 +14,7 @@ const categories = [
 		]
 	},
 	{
-		title: "◎ frontend & mobile",
+		title: t('stack.cat2'),
 		skills: [
 			{ name: "React", color: "blue" },
 			{ name: "Next.js", color: "blue" },
@@ -19,7 +24,7 @@ const categories = [
 		]
 	},
 	{
-		title: "◎ backend, servicios & ia",
+		title: t('stack.cat3'),
 		skills: [
 			{ name: "Python", color: "grn" },
 			{ name: "PHP", color: "red" },
@@ -31,8 +36,8 @@ const categories = [
 ---
 <section id="stack">
 	<div class="container">
-		<span class="s-label">02 · stack técnico</span>
-		<h2 class="s-title">Tecnologías</h2>
+		<span class="s-label">{t('stack.label')}</span>
+		<h2 class="s-title">{t('stack.title')}</h2>
 		<div class="stack-groups">
 			{categories.map(cat => (
 				<div class="stack-group">

@@ -1,25 +1,30 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const projects = [
 	{
 		num: "01",
-		name: "AppBackend TFG",
-		desc: "Backend completo desarrollado con Java e Hibernate. API robusta con gestión de persistencia y arquitectura limpia.",
+		name: t('projects.p1.name'),
+		desc: t('projects.p1.desc'),
 		tags: ["Java", "Hibernate", "REST API", "SQL"],
 		link: "https://github.com/Rubenrc27",
 		color: "blue"
 	},
 	{
 		num: "02",
-		name: "PatitoApp",
-		desc: "Aplicación móvil multiplataforma con Flutter. Interfaz intuitiva y fluida que cubre la experiencia de usuario completa.",
+		name: t('projects.p2.name'),
+		desc: t('projects.p2.desc'),
 		tags: ["Flutter", "Dart", "Mobile", "TFG"],
 		link: "https://github.com/Rubenrc27",
 		color: "grn"
 	},
 	{
 		num: "03",
-		name: "HoyAParco",
-		desc: "Monorepo React que conecta conductores que buscan aparcamiento. Solución real con arquitectura escalable.",
+		name: t('projects.p3.name'),
+		desc: t('projects.p3.desc'),
 		tags: ["React", "Next.js", "TypeScript", "Monorepo"],
 		link: "https://github.com/Rubenrc27",
 		color: "yel"
@@ -28,8 +33,8 @@ const projects = [
 ---
 <section id="proyectos">
 	<div class="container">
-		<span class="s-label">05 · proyectos</span>
-		<h2 class="s-title">Lo que he construido</h2>
+		<span class="s-label">{t('projects.label')}</span>
+		<h2 class="s-title">{t('projects.title')}</h2>
 		<div class="proj-grid">
 			{projects.map(proj => (
 				<div class={`proj-card border-${proj.color}`}>
@@ -39,7 +44,7 @@ const projects = [
 					<div class="proj-tags">
 						{proj.tags.map(tag => <span class="proj-tag">{tag}</span>)}
 					</div>
-					<a href={proj.link} target="_blank" class="proj-link">Ver en GitHub →</a>
+					<a href={proj.link} target="_blank" class="proj-link">{t('projects.view')}</a>
 				</div>
 			))}
 		</div>

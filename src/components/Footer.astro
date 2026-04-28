@@ -1,13 +1,17 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 <footer>
 	<div class="container foot-grid">
 		<div class="foot-left">
 			<span class="foot-name">Rubén Rodríguez Cazorla</span>
-			<span class="foot-mono">Full Stack Developer · España</span>
+			<span class="foot-mono">{t('footer.role')}</span>
 		</div>
 		<div class="foot-right">
-			<span class="foot-mono">Hecho con 💛 · 2026</span>
+			<span class="foot-mono">{t('footer.made')}</span>
 			<a href="https://github.com/Rubenrc27" target="_blank" class="foot-mono link">github.com/Rubenrc27</a>
 		</div>
 	</div>
