@@ -32,6 +32,12 @@ const t = useTranslations(lang);
 						<span class="c-value">ruben.rodriguez.cazorla@gmail.com</span>
 					</div>
 				</a>
+				<a href="https://rubenrc27.github.io/EsquivaCo/" target="_blank" class="contact-card card-play">
+					<div class="contact-info">
+						<span class="c-label">{t('hero.play')}</span>
+						<span class="c-value">EsquivaCo</span>
+					</div>
+				</a>
 			</div>
 		</div>
 	</div>
@@ -67,6 +73,9 @@ const t = useTranslations(lang);
 	.contact-card:hover {
 		border-color: var(--accent-1);
 		transform: translateX(10px);
+	}
+	.card-play:hover {
+		border-color: var(--accent-3);
 	}
 	.c-label {
 		display: block;
