@@ -8,9 +8,9 @@ const categories = [
 	{
 		title: t('stack.cat1'),
 		skills: [
-			{ name: "Java", color: "red" },
-			{ name: "Hibernate", color: "pur" },
-			{ name: "SQL", color: "red" }
+			{ name: "Java", color: "pink" },
+			{ name: "Hibernate", color: "purp" },
+			{ name: "SQL", color: "cyan" }
 		]
 	},
 	{
@@ -18,18 +18,18 @@ const categories = [
 		skills: [
 			{ name: "React", color: "blue" },
 			{ name: "Next.js", color: "blue" },
-			{ name: "Flutter", color: "grn" },
-			{ name: "Expo", color: "yel" },
+			{ name: "Flutter", color: "cyan" },
+			{ name: "Expo", color: "yellow" },
 			{ name: "TypeScript", color: "blue" }
 		]
 	},
 	{
 		title: t('stack.cat3'),
 		skills: [
-			{ name: "Python", color: "grn" },
-			{ name: "PHP", color: "red" },
-			{ name: "Firebase", color: "yel" },
-			{ name: "IA / LLMs", color: "pur" }
+			{ name: "Python", color: "cyan" },
+			{ name: "PHP", color: "pink" },
+			{ name: "Firebase", color: "yellow" },
+			{ name: "IA / LLMs", color: "purp" }
 		]
 	}
 ];
@@ -38,13 +38,19 @@ const categories = [
 	<div class="container">
 		<span class="s-label">{t('stack.label')}</span>
 		<h2 class="s-title">{t('stack.title')}</h2>
-		<div class="stack-groups">
-			{categories.map(cat => (
-				<div class="stack-group">
-					<p class="group-label">{cat.title}</p>
+		<div class="stack-grid">
+			{categories.map((cat, index) => (
+				<div class="stack-group" style={`--delay: ${index * 0.2}s`}>
+					<div class="group-header">
+						<span class="group-line"></span>
+						<p class="group-label">{cat.title}</p>
+					</div>
 					<div class="pills">
 						{cat.skills.map(skill => (
-							<span class={`pill p-${skill.color}`}>{skill.name}</span>
+							<div class={`pill-wrapper p-${skill.color}`}>
+								<span class="pill-bg"></span>
+								<span class="pill">{skill.name}</span>
+							</div>
 						))}
 					</div>
 				</div>
@@ -54,39 +60,99 @@ const categories = [
 </section>
 
 <style>
-	.stack-groups {
-		display: flex;
-		flex-direction: column;
+	.stack-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		gap: 3rem;
+	}
+	.stack-group {
+		background: rgba(15, 20, 25, 0.2);
+		border: 1px solid rgba(255, 255, 255, 0.03);
+		padding: 2rem;
+		border-radius: 16px;
+		transition: all 0.4s ease;
+	}
+	.stack-group:hover {
+		background: rgba(20, 25, 30, 0.5);
+		border-color: rgba(255, 255, 255, 0.1);
+		transform: translateY(-5px);
+		box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+	}
+	
+	.group-header {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 2rem;
+	}
+	.group-line {
+		height: 2px;
+		width: 30px;
+		background: var(--accent-3);
+		border-radius: 2px;
 	}
 	.group-label {
 		font-family: var(--font-mono);
-		font-size: 0.75rem;
+		font-size: 0.9rem;
 		text-transform: uppercase;
-		color: var(--muted);
-		margin-bottom: 1.5rem;
+		color: #fff;
 		letter-spacing: 0.1em;
+		font-weight: 700;
 	}
+	
 	.pills {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 1rem;
 	}
-	.pill {
-		padding: 0.6rem 1.4rem;
+	
+	.pill-wrapper {
+		position: relative;
 		border-radius: 100px;
-		font-family: var(--font-mono);
-		font-size: 0.85rem;
-		font-weight: 700;
-		border: 1px solid transparent;
+		padding: 1px; /* For the gradient border effect */
+		background: rgba(255, 255, 255, 0.1);
 		transition: all 0.3s ease;
+		cursor: default;
 	}
-	.pill:hover {
-		transform: translateY(-4px) scale(1.05);
+	.pill-wrapper::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: 100px;
+		background: var(--pill-color);
+		opacity: 0;
+		transition: opacity 0.3s ease;
 	}
-	.p-red { color: var(--accent-1); border-color: var(--accent-1); background: rgba(255, 107, 107, 0.05); }
-	.p-yel { color: var(--accent-2); border-color: var(--accent-2); background: rgba(255, 217, 61, 0.05); }
-	.p-blue { color: var(--accent-4); border-color: var(--accent-4); background: rgba(77, 150, 255, 0.05); }
-	.p-grn { color: var(--accent-3); border-color: var(--accent-3); background: rgba(107, 203, 119, 0.05); }
-	.p-pur { color: var(--accent-5); border-color: var(--accent-5); background: rgba(199, 125, 255, 0.05); }
+	
+	.pill {
+		position: relative;
+		display: block;
+		padding: 0.7rem 1.5rem;
+		border-radius: 100px;
+		background: var(--bg);
+		font-family: var(--font-main);
+		font-size: 0.95rem;
+		font-weight: 600;
+		color: var(--muted);
+		transition: all 0.3s ease;
+		z-index: 1;
+	}
+	
+	.pill-wrapper:hover {
+		transform: translateY(-3px) scale(1.02);
+		box-shadow: 0 10px 20px var(--pill-glow);
+	}
+	.pill-wrapper:hover::before {
+		opacity: 1;
+	}
+	.pill-wrapper:hover .pill {
+		background: rgba(15, 20, 25, 0.9);
+		color: #fff;
+	}
+
+	.p-pink { --pill-color: var(--accent-1); --pill-glow: rgba(255, 51, 102, 0.3); }
+	.p-yellow { --pill-color: var(--accent-2); --pill-glow: rgba(255, 204, 0, 0.3); }
+	.p-cyan { --pill-color: var(--accent-3); --pill-glow: rgba(0, 255, 204, 0.3); }
+	.p-blue { --pill-color: var(--accent-4); --pill-glow: rgba(0, 102, 255, 0.3); }
+	.p-purp { --pill-color: var(--accent-5); --pill-glow: rgba(153, 0, 255, 0.3); }
 </style>

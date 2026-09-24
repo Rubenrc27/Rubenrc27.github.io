@@ -5,46 +5,53 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 <section class="hero" id="inicio">
-	<div class="cyber-grid"></div>
+	<div class="blob-container">
+		<div class="blob b1"></div>
+		<div class="blob b2"></div>
+		<div class="blob b3"></div>
+	</div>
+	
+	<!-- Glass overlay to make the blobs look like an aurora -->
+	<div class="glass-overlay"></div>
+
 	<div class="hero-inner container">
 		<div class="hero-content">
-			<div class="terminal-header">
-				<span class="dot red"></span>
-				<span class="dot yellow"></span>
-				<span class="dot green"></span>
-				<span class="title">rrc27@sys: ~</span>
+			<div class="availability-badge">
+				<span class="pulse-dot"></span> Available for new projects
 			</div>
-			<div class="terminal-body">
-				<p class="hero-eyebrow">> {t('hero.greeting')}</p>
-				<h1 class="hero-name">
-					<div class="glitch-wrapper"><span class="glitch" data-text="Rubén">Rubén</span></div><br />
-					<div class="glitch-wrapper"><span class="glitch" data-text="Rodríguez">Rodríguez</span></div><br />
-					<div class="glitch-wrapper"><span class="glitch" data-text="Cazorla">Cazorla</span></div>
-				</h1>
-				<p class="hero-sub">> <Fragment set:html={t('hero.subtitle')} /><br /><span class="blink-text">_ Java · React · Flutter _</span></p>
-				
-				<div class="hero-btns">
-					<a href="/cv.pdf" download class="cyber-btn primary">
-						<span class="btn-text">[{t('hero.cv')}]</span>
-						<span class="btn-glitch"></span>
-					</a>
-					<a href="https://github.com/Rubenrc27" target="_blank" class="cyber-btn secondary">
-						<span class="btn-text">[GITHUB]</span>
-					</a>
-					<a href="https://www.linkedin.com/in/rub%C3%A9n-rodr%C3%ADguez-b52790237/" target="_blank" class="cyber-btn secondary">
-						<span class="btn-text">[LINKEDIN]</span>
-					</a>
-					<a href="https://rubenrc27.github.io/EsquivaCo/" target="_blank" class="cyber-btn accent">
-						<span class="btn-text">>{t('hero.play')}<</span>
-					</a>
-				</div>
+			
+			<h1 class="hero-name">
+				<span class="text-glow">Rubén</span><br />
+				Rodríguez<br />
+				<span class="grad-anim">Cazorla</span>
+			</h1>
+			
+			<p class="hero-sub"><Fragment set:html={t('hero.subtitle')} /><br /><span class="sub-tech">Java · React · Flutter · Next.js</span></p>
+			
+			<div class="hero-btns">
+				<a href="/cv.pdf" download class="btn btn-primary">
+					<span class="btn-content">{t('hero.cv')}</span>
+				</a>
+				<a href="https://github.com/Rubenrc27" target="_blank" class="btn btn-glass">
+					<span class="btn-content">GitHub</span>
+				</a>
+				<a href="https://www.linkedin.com/in/rub%C3%A9n-rodr%C3%ADguez-b52790237/" target="_blank" class="btn btn-glass">
+					<span class="btn-content">LinkedIn</span>
+				</a>
+				<a href="https://rubenrc27.github.io/EsquivaCo/" target="_blank" class="btn btn-outline">
+					<span class="btn-content">{t('hero.play')}</span>
+				</a>
 			</div>
 		</div>
+		
 		<div class="hero-visual">
-			<div class="cyber-frame">
-				<div class="frame-corners"></div>
-				<img src="/me.jpg" alt="Rubén Rodríguez Cazorla" class="profile-img" />
-				<div class="scanline"></div>
+			<div class="photo-wrapper">
+				<div class="photo-ring r1"></div>
+				<div class="photo-ring r2"></div>
+				<div class="photo-ring r3"></div>
+				<div class="photo-inner">
+					<img src="/me.jpg" alt="Rubén Rodríguez Cazorla" class="profile-img" />
+				</div>
 			</div>
 		</div>
 	</div>
@@ -58,26 +65,58 @@ const t = useTranslations(lang);
 		position: relative;
 		overflow: hidden;
 		padding-top: 5rem;
-		background: radial-gradient(circle at center, rgba(6, 182, 212, 0.05) 0%, transparent 70%);
-	}
-	.cyber-grid {
-		position: absolute;
-		inset: 0;
-		background-image: 
-			linear-gradient(rgba(74, 222, 128, 0.1) 1px, transparent 1px),
-			linear-gradient(90deg, rgba(74, 222, 128, 0.1) 1px, transparent 1px);
-		background-size: 50px 50px;
-		transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
-		animation: grid-move 20s linear infinite;
-		opacity: 0.3;
-		z-index: 0;
-		pointer-events: none;
-	}
-	@keyframes grid-move {
-		0% { background-position: 0 0; }
-		100% { background-position: 0 50px; }
 	}
 	
+	/* Aurora Blobs */
+	.blob-container {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		filter: blur(80px);
+		opacity: 0.6;
+		pointer-events: none;
+		overflow: hidden;
+	}
+	.blob {
+		position: absolute;
+		border-radius: 50%;
+		mix-blend-mode: screen;
+		animation: aurora 20s infinite alternate ease-in-out;
+	}
+	.b1 {
+		width: 50vw; height: 50vw;
+		background: radial-gradient(circle, var(--accent-4), transparent 70%);
+		top: -10%; right: -10%;
+		animation-duration: 25s;
+	}
+	.b2 {
+		width: 40vw; height: 40vw;
+		background: radial-gradient(circle, var(--accent-5), transparent 70%);
+		bottom: -10%; left: -10%;
+		animation-duration: 20s;
+		animation-delay: -5s;
+	}
+	.b3 {
+		width: 45vw; height: 45vw;
+		background: radial-gradient(circle, var(--accent-3), transparent 70%);
+		top: 30%; left: 30%;
+		animation-duration: 30s;
+		animation-delay: -10s;
+	}
+	@keyframes aurora {
+		0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+		50% { transform: translate(5vw, 10vh) scale(1.1) rotate(180deg); }
+		100% { transform: translate(-5vw, -5vh) scale(0.9) rotate(360deg); }
+	}
+	
+	.glass-overlay {
+		position: absolute;
+		inset: 0;
+		background: rgba(3, 4, 6, 0.4); /* Darkens the blobs slightly */
+		z-index: 0;
+		backdrop-filter: blur(30px);
+	}
+
 	.hero-inner {
 		display: flex;
 		align-items: center;
@@ -88,210 +127,236 @@ const t = useTranslations(lang);
 	}
 	.hero-content {
 		flex: 1;
-		background: rgba(11, 17, 21, 0.8);
-		border: 1px solid var(--border);
-		border-radius: 4px;
-		box-shadow: 0 0 20px rgba(6, 182, 212, 0.1);
-		backdrop-filter: blur(10px);
-		position: relative;
 	}
 	
-	.terminal-header {
-		background: #090e11;
-		padding: 8px 16px;
-		border-bottom: 1px solid var(--border);
-		display: flex;
+	.availability-badge {
+		display: inline-flex;
 		align-items: center;
-		gap: 8px;
-	}
-	.dot {
-		width: 12px;
-		height: 12px;
-		border-radius: 50%;
-	}
-	.dot.red { background: var(--accent-5); box-shadow: 0 0 5px var(--accent-5); }
-	.dot.yellow { background: var(--accent-4); box-shadow: 0 0 5px var(--accent-4); }
-	.dot.green { background: var(--accent-3); box-shadow: 0 0 5px var(--accent-3); }
-	
-	.terminal-header .title {
-		margin-left: auto;
-		color: var(--muted);
+		gap: 0.5rem;
+		background: rgba(255, 255, 255, 0.05);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		padding: 0.5rem 1rem;
+		border-radius: 100px;
 		font-size: 0.8rem;
 		font-family: var(--font-mono);
+		margin-bottom: 1.5rem;
+		backdrop-filter: blur(10px);
 	}
-	
-	.terminal-body {
-		padding: 2rem;
+	.pulse-dot {
+		width: 8px; height: 8px;
+		background: var(--accent-3);
+		border-radius: 50%;
+		box-shadow: 0 0 10px var(--accent-3);
+		animation: pulse 2s infinite;
+	}
+	@keyframes pulse {
+		0% { box-shadow: 0 0 0 0 rgba(0, 255, 204, 0.4); }
+		70% { box-shadow: 0 0 0 6px rgba(0, 255, 204, 0); }
+		100% { box-shadow: 0 0 0 0 rgba(0, 255, 204, 0); }
 	}
 
-	.hero-eyebrow {
-		font-family: var(--font-mono);
-		font-size: 1rem;
-		color: var(--accent-1);
-		margin-bottom: 1rem;
-	}
 	.hero-name {
-		font-size: clamp(2rem, 8vw, 5rem);
-		font-weight: 800;
-		line-height: 1;
+		font-size: clamp(3rem, 8vw, 6.5rem);
+		font-weight: 900;
+		line-height: 0.95;
 		margin-bottom: 1.5rem;
-		text-transform: uppercase;
-		letter-spacing: -2px;
+		letter-spacing: -0.02em;
 	}
+	.text-glow {
+		color: #fff;
+		text-shadow: 0 0 20px rgba(255,255,255,0.3);
+	}
+	.grad-anim {
+		background: linear-gradient(to right, var(--accent-1), var(--accent-5), var(--accent-4), var(--accent-3));
+		background-size: 300% 300%;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		animation: grad-shift 8s ease infinite;
+	}
+	@keyframes grad-shift {
+		0% { background-position: 0% 50%; }
+		50% { background-position: 100% 50%; }
+		100% { background-position: 0% 50%; }
+	}
+
 	.hero-sub {
-		font-size: 1.1rem;
+		font-size: 1.3rem;
 		color: var(--muted);
 		margin-bottom: 2.5rem;
-		font-family: var(--font-mono);
+		max-width: 600px;
 	}
 	.hero-sub strong {
-		color: var(--accent-2);
+		color: #fff;
 	}
-	.blink-text {
-		color: var(--text);
-		animation: blink-caret 1s step-end infinite;
+	.sub-tech {
+		display: inline-block;
+		margin-top: 0.5rem;
+		font-family: var(--font-mono);
+		font-size: 0.9rem;
+		color: var(--accent-3);
 	}
-	@keyframes blink-caret {
-		50% { opacity: 0; }
-	}
-	
+
+	/* PREMIUM BUTTONS */
 	.hero-btns {
 		display: flex;
 		gap: 1rem;
 		flex-wrap: wrap;
 	}
-	.cyber-btn {
+	.btn {
 		position: relative;
-		padding: 0.8rem 1.5rem;
-		font-family: var(--font-mono);
-		font-size: 0.9rem;
-		font-weight: bold;
-		text-transform: uppercase;
-		background: transparent;
-		cursor: pointer;
+		padding: 2px; /* For gradient border */
+		border-radius: 12px;
+		font-family: var(--font-main);
+		font-size: 1rem;
+		font-weight: 600;
+		text-decoration: none;
+		transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 		overflow: hidden;
-		transition: all 0.2s ease;
-		display: inline-block;
+		display: inline-flex;
 	}
-	.cyber-btn::before {
-		content: '';
-		position: absolute;
-		top: 0; left: 0;
-		width: 10px; height: 100%;
+	.btn:hover {
+		transform: translateY(-5px);
+	}
+	.btn-content {
+		display: block;
+		padding: 0.8rem 1.8rem;
+		background: var(--bg);
+		border-radius: 10px;
+		transition: background 0.3s ease;
+	}
+	
+	.btn-primary {
+		background: linear-gradient(135deg, var(--accent-4), var(--accent-5));
+		box-shadow: 0 10px 20px rgba(0, 102, 255, 0.3);
+	}
+	.btn-primary .btn-content {
+		background: transparent;
+		color: #fff;
+	}
+	
+	.btn-glass {
 		background: rgba(255,255,255,0.1);
-		transform: skewX(-15deg) translateX(-20px);
-		transition: all 0.3s ease;
 	}
-	.cyber-btn:hover::before {
-		transform: skewX(-15deg) translateX(150px);
+	.btn-glass .btn-content {
+		background: rgba(15, 20, 25, 0.8);
+		color: var(--text);
+		backdrop-filter: blur(10px);
 	}
-	
-	.cyber-btn.primary {
-		color: #05080a;
-		background: var(--accent-1);
-		border: 1px solid var(--accent-1);
-		box-shadow: 0 0 15px rgba(74, 222, 128, 0.4);
-	}
-	.cyber-btn.primary:hover {
-		box-shadow: 0 0 25px rgba(74, 222, 128, 0.7);
-		transform: translateY(-2px);
+	.btn-glass:hover {
+		background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 	}
 	
-	.cyber-btn.secondary {
-		color: var(--accent-2);
-		border: 1px solid var(--accent-2);
+	.btn-outline {
+		background: linear-gradient(135deg, var(--accent-3), transparent);
 	}
-	.cyber-btn.secondary:hover {
-		background: rgba(6, 182, 212, 0.1);
-		box-shadow: inset 0 0 10px rgba(6, 182, 212, 0.3);
+	.btn-outline .btn-content {
+		background: var(--bg);
+		color: var(--accent-3);
 	}
-	
-	.cyber-btn.accent {
-		color: var(--accent-5);
-		border: 1px dashed var(--accent-5);
-	}
-	.cyber-btn.accent:hover {
-		background: rgba(244, 63, 94, 0.1);
-		border-style: solid;
+	.btn-outline:hover .btn-content {
+		background: rgba(0, 255, 204, 0.1);
 	}
 
+	/* PREMIUM VISUAL RING */
 	.hero-visual {
 		position: relative;
-		width: 350px;
-		height: 350px;
+		width: 400px;
+		height: 400px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
-	.cyber-frame {
+	.photo-wrapper {
 		position: relative;
-		width: 300px;
-		height: 300px;
-		border: 2px solid var(--accent-2);
-		background: var(--surface);
-		overflow: hidden;
-		box-shadow: 0 0 30px rgba(6, 182, 212, 0.2);
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
-	.frame-corners {
+	
+	.photo-ring {
 		position: absolute;
-		inset: -5px;
-		border: 2px solid var(--accent-1);
-		clip-path: polygon(
-			0 15px, 15px 0,
-			calc(100% - 15px) 0, 100% 15px,
-			100% calc(100% - 15px), calc(100% - 15px) 100%,
-			15px 100%, 0 calc(100% - 15px)
-		);
+		inset: 0;
+		border-radius: 50%;
+		border: 1px solid transparent;
 		pointer-events: none;
-		z-index: 2;
+	}
+	.r1 {
+		inset: 20px;
+		border-top-color: var(--accent-4);
+		border-bottom-color: rgba(0, 102, 255, 0.2);
+		animation: spin 15s linear infinite;
+	}
+	.r2 {
+		inset: 10px;
+		border-right-color: var(--accent-5);
+		border-left-color: rgba(153, 0, 255, 0.2);
+		animation: spin 20s linear infinite reverse;
+	}
+	.r3 {
+		inset: 0;
+		border: 1px dashed rgba(255,255,255,0.1);
+		animation: spin 30s linear infinite;
+	}
+	
+	.r1::after, .r2::after {
+		content: '';
+		position: absolute;
+		width: 8px; height: 8px;
+		background: #fff;
+		border-radius: 50%;
+		box-shadow: 0 0 10px #fff;
+	}
+	.r1::after { top: 0; left: 50%; transform: translateX(-50%); background: var(--accent-4); box-shadow: 0 0 15px var(--accent-4); }
+	.r2::after { top: 50%; right: 0; transform: translateY(-50%); background: var(--accent-5); box-shadow: 0 0 15px var(--accent-5); }
+
+	@keyframes spin {
+		from { transform: rotate(0deg); }
+		to { transform: rotate(360deg); }
+	}
+
+	.photo-inner {
+		width: 280px;
+		height: 280px;
+		border-radius: 50%;
+		padding: 5px;
+		background: linear-gradient(135deg, var(--accent-4), var(--accent-5));
+		animation: float 6s ease-in-out infinite;
 	}
 	.profile-img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		display: block;
-		filter: contrast(1.2) sepia(0.3) hue-rotate(150deg) saturate(1.5); /* Techy filter */
-		transition: filter 0.3s ease;
+		border-radius: 50%;
+		background: var(--bg);
 	}
-	.cyber-frame:hover .profile-img {
-		filter: contrast(1.1) sepia(0) hue-rotate(0) saturate(1); /* Reveal original on hover */
-	}
-	.scanline {
-		position: absolute;
-		top: 0; left: 0;
-		width: 100%; height: 5px;
-		background: rgba(74, 222, 128, 0.5);
-		box-shadow: 0 0 10px var(--accent-1);
-		opacity: 0.6;
-		animation: scan 4s linear infinite;
-		z-index: 3;
-		pointer-events: none;
-	}
-	@keyframes scan {
-		0% { top: -10%; }
-		100% { top: 110%; }
+	
+	@keyframes float {
+		0%, 100% { transform: translateY(0); }
+		50% { transform: translateY(-15px); }
 	}
 
 	@media (max-width: 900px) {
 		.hero-inner {
 			flex-direction: column-reverse;
-			text-align: left;
+			text-align: center;
 			gap: 3rem;
 		}
-		.hero-content {
-			width: 100%;
+		.hero-sub {
+			margin: 0 auto 2.5rem;
 		}
-		.hero-btns {
-			justify-content: flex-start;
+		.hero-btns { 
+			justify-content: center; 
 		}
-		.hero-visual {
-			width: 280px;
-			height: 280px;
-			margin: 0 auto;
+		.hero-visual { 
+			width: 320px; 
+			height: 320px;
 		}
-		.cyber-frame {
-			width: 250px;
-			height: 250px;
+		.photo-inner {
+			width: 220px;
+			height: 220px;
 		}
 	}
 </style>
