@@ -6,20 +6,21 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 ---
-<nav>
+<nav class="cyber-nav">
 	<div class="nav-container">
-		<a href={translatePath('/')} class="nav-logo">rrc27@dev:~$</a>
+		<a href={translatePath('/')} class="nav-logo">
+			<span class="glitch" data-text="SYS_ADMIN">SYS_ADMIN</span><span class="blink">_</span>
+		</a>
 		
 		<div class="nav-right">
 			<div class="lang-dropdown">
-				<button class="drop-btn" aria-label="Cambiar idioma">
-					{lang.toUpperCase()}
-					<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+				<button class="drop-btn cyber-bracket" aria-label="Cambiar idioma">
+					[{lang.toUpperCase()}]
 				</button>
-				<div class="dropdown-content">
+				<div class="dropdown-content cyber-panel">
 					{Object.entries(languages).map(([code, label]) => (
 						<a href={`/${code}/`} class={lang === code ? 'active' : ''}>
-							<span class="lang-code">{code.toUpperCase()}</span>
+							<span class="lang-code">[{code.toUpperCase()}]</span>
 							<span class="lang-label">{label}</span>
 						</a>
 					))}
@@ -32,14 +33,15 @@ const translatePath = useTranslatedPath(lang);
 				<span class="bar"></span>
 			</button>
 			<div class="nav-links">
-				<a href="#sobre-mi">{t('nav.about')}</a>
-				<a href="#stack">{t('nav.stack')}</a>
-				<a href="#sistemas">{t('nav.systems')}</a>
-				<a href="#proyectos">{t('nav.projects')}</a>
-				<a href="#contacto">{t('nav.contact')}</a>
+				<a href="#sobre-mi" class="cyber-link">/{t('nav.about')}</a>
+				<a href="#stack" class="cyber-link">/{t('nav.stack')}</a>
+				<a href="#sistemas" class="cyber-link">/{t('nav.systems')}</a>
+				<a href="#proyectos" class="cyber-link">/{t('nav.projects')}</a>
+				<a href="#contacto" class="cyber-link">/{t('nav.contact')}</a>
 			</div>
 		</div>
 	</div>
+	<div class="nav-border"></div>
 </nav>
 
 <script>
@@ -63,16 +65,22 @@ const translatePath = useTranslatedPath(lang);
 </script>
 
 <style>
-	nav {
+	.cyber-nav {
 		position: fixed;
 		top: 0;
 		left: 0;
 		right: 0;
 		z-index: 100;
-		background: rgba(10, 10, 15, 0.8);
-		backdrop-filter: blur(12px);
-		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+		background: rgba(5, 8, 10, 0.9);
+		backdrop-filter: blur(10px);
 	}
+	.nav-border {
+		height: 2px;
+		width: 100%;
+		background: linear-gradient(90deg, transparent, var(--accent-2), var(--accent-1), transparent);
+		box-shadow: 0 0 10px var(--accent-2);
+	}
+	
 	.nav-container {
 		max-width: 1200px;
 		margin: 0 auto;
@@ -83,11 +91,16 @@ const translatePath = useTranslatedPath(lang);
 	}
 	.nav-logo {
 		font-family: var(--font-mono);
-		font-size: 0.8rem;
-		color: var(--accent-3);
-		letter-spacing: 0.1em;
-		z-index: 101;
+		font-size: 1rem;
+		color: var(--accent-1);
+		font-weight: bold;
+		letter-spacing: 2px;
 	}
+	.blink {
+		animation: blink-anim 1s step-end infinite;
+	}
+	@keyframes blink-anim { 50% { opacity: 0; } }
+
 	.nav-right {
 		display: flex;
 		align-items: center;
@@ -97,70 +110,80 @@ const translatePath = useTranslatedPath(lang);
 		display: flex;
 		gap: 2rem;
 	}
-	.nav-links a {
+	.cyber-link {
 		font-family: var(--font-mono);
-		font-size: 0.7rem;
+		font-size: 0.8rem;
 		color: var(--muted);
 		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		transition: color 0.3s ease;
+		letter-spacing: 1px;
+		transition: all 0.2s ease;
+		position: relative;
 	}
-	.nav-links a:hover {
-		color: var(--text);
+	.cyber-link:hover {
+		color: var(--accent-2);
+		text-shadow: 0 0 8px var(--accent-2);
+	}
+	.cyber-link::before {
+		content: '>';
+		position: absolute;
+		left: -12px;
+		opacity: 0;
+		color: var(--accent-1);
+		transition: opacity 0.2s;
+	}
+	.cyber-link:hover::before {
+		opacity: 1;
 	}
 
 	.lang-dropdown {
 		position: relative;
 		display: inline-block;
 	}
-
 	.drop-btn {
-		background: rgba(255, 255, 255, 0.03);
-		border: 1px solid var(--border);
-		color: var(--text);
-		padding: 0.5rem 0.8rem;
+		background: transparent;
+		border: none;
+		color: var(--accent-1);
 		font-family: var(--font-mono);
-		font-size: 0.7rem;
-		font-weight: 700;
-		border-radius: 6px;
+		font-size: 0.8rem;
+		font-weight: bold;
 		cursor: pointer;
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		transition: all 0.3s ease;
+		transition: color 0.3s ease;
 	}
-
-	.drop-btn svg {
-		transition: transform 0.3s ease;
-		color: var(--muted);
-	}
-
-	.lang-dropdown:hover .drop-btn {
-		border-color: var(--accent-2);
-		background: rgba(255, 255, 255, 0.06);
-	}
-
-	.lang-dropdown:hover .drop-btn svg {
-		transform: rotate(180deg);
-		color: var(--accent-2);
+	.drop-btn:hover {
+		color: var(--text);
+		text-shadow: 0 0 8px var(--text);
 	}
 
 	.dropdown-content {
 		position: absolute;
 		top: 100%;
 		right: 0;
-		margin-top: 0.5rem;
-		background: var(--card);
+		margin-top: 1rem;
+		background: var(--surface);
 		border: 1px solid var(--border);
-		border-radius: 8px;
-		min-width: 140px;
-		box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+		min-width: 150px;
+		box-shadow: 0 5px 15px rgba(0,0,0,0.8);
 		opacity: 0;
 		visibility: hidden;
 		transform: translateY(10px);
-		transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+		transition: all 0.3s ease;
 		z-index: 1000;
-		overflow: hidden;
+	}
+	.dropdown-content::before {
+		content: '';
+		position: absolute;
+		top: -1px; left: -1px;
+		width: 10px; height: 10px;
+		border-top: 2px solid var(--accent-1);
+		border-left: 2px solid var(--accent-1);
+	}
+	.dropdown-content::after {
+		content: '';
+		position: absolute;
+		bottom: -1px; right: -1px;
+		width: 10px; height: 10px;
+		border-bottom: 2px solid var(--accent-1);
+		border-right: 2px solid var(--accent-1);
 	}
 
 	.lang-dropdown:hover .dropdown-content {
@@ -176,83 +199,65 @@ const translatePath = useTranslatedPath(lang);
 		padding: 0.8rem 1rem;
 		text-decoration: none;
 		font-family: var(--font-mono);
-		transition: background 0.2s ease;
+		color: var(--muted);
+		transition: all 0.2s;
+		border-bottom: 1px solid rgba(255,255,255,0.05);
 	}
+	.dropdown-content a:last-child { border-bottom: none; }
 
 	.dropdown-content a:hover {
-		background: rgba(255, 255, 255, 0.05);
+		background: rgba(6, 182, 212, 0.1);
+		color: var(--accent-2);
+		padding-left: 1.5rem;
 	}
-
 	.dropdown-content a.active {
-		background: rgba(255, 217, 61, 0.05);
-		color: var(--accent-2) !important;
+		color: var(--accent-1);
 	}
-
 	.lang-code {
-		font-size: 0.65rem;
-		font-weight: 800;
-		padding: 0.1rem 0.3rem;
-		background: rgba(255,255,255,0.05);
-		border-radius: 4px;
-		color: var(--muted);
+		font-size: 0.7rem;
+		font-weight: bold;
 	}
-
-	.active .lang-code {
-		background: var(--accent-2);
-		color: #000;
-	}
-
 	.lang-label {
-		font-size: 0.75rem;
-		font-family: var(--font-main);
+		font-size: 0.8rem;
 	}
 
 	.mobile-toggle {
 		display: none;
 		flex-direction: column;
-		gap: 6px;
+		gap: 5px;
 		background: none;
-		border: none;
+		border: 1px solid var(--accent-2);
+		padding: 6px;
 		cursor: pointer;
-		padding: 0.5rem;
 		z-index: 101;
 	}
 	.bar {
-		width: 24px;
+		width: 20px;
 		height: 2px;
-		background: var(--text);
+		background: var(--accent-2);
 		transition: all 0.3s ease;
 	}
 
 	@media (max-width: 800px) {
-		.mobile-toggle {
-			display: flex;
-		}
-		.mobile-toggle.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+		.mobile-toggle { display: flex; }
+		.mobile-toggle.active .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 		.mobile-toggle.active .bar:nth-child(2) { opacity: 0; }
-		.mobile-toggle.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+		.mobile-toggle.active .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 		.nav-links {
 			position: fixed;
-			top: 0;
-			right: -100%;
-			width: 100%;
-			height: 100vh;
-			background: var(--bg);
+			top: 0; right: -100%;
+			width: 100%; height: 100vh;
+			background: rgba(5, 8, 10, 0.98);
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
-			transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+			transition: right 0.4s ease;
 			z-index: 100;
+			border-left: 2px solid var(--accent-2);
 		}
-		.nav-links.active {
-			right: 0;
-		}
-		.nav-links a {
-			font-size: 1.2rem;
-		}
-		.nav-right {
-			gap: 1rem;
-		}
+		.nav-links.active { right: 0; }
+		.cyber-link { font-size: 1.5rem; margin: 1rem 0; }
+		.nav-right { gap: 1rem; }
 	}
 </style>

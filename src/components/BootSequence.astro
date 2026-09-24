@@ -1,0 +1,140 @@
+---
+---
+<div id="boot">
+  <div id="boot-lines"></div>
+  <div id="bar-wrap"><div id="bar"></div></div>
+  <div id="bar-pct"></div>
+</div>
+
+<style>
+  /* ---------- BOOT SCREEN ---------- */
+  #boot {
+    position: fixed; 
+    inset: 0;
+    padding: 24px;
+    font-size: 13px;
+    line-height: 1.55;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-mono);
+    z-index: 9999;
+    transition: opacity .5s ease, transform .5s ease;
+    overflow: hidden;
+  }
+  #boot.hide { 
+    opacity: 0; 
+    transform: translateY(-12px); 
+    pointer-events: none; 
+  }
+  #boot-lines { white-space: pre-wrap; }
+  :global(.l-ok) { color: var(--accent-3); } /* Green-ish */
+  :global(.l-dim) { color: var(--muted); }
+  :global(.l-warn) { color: var(--accent-2); } /* Yellow-ish */
+  :global(.cursor) {
+    display: inline-block; width: 7px; height: 13px;
+    background: var(--accent-3); margin-left: 2px;
+    animation: blink 1s step-end infinite; vertical-align: text-bottom;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  #bar-wrap {
+    margin-top: 14px; display: none;
+    border: 1px solid var(--border); height: 14px; border-radius: 3px;
+    overflow: hidden; max-width: 340px;
+  }
+  #bar { height: 100%; width: 0%; background: var(--accent-3); transition: width .12s linear; }
+  #bar-pct { font-size: 11px; color: var(--muted); margin-top: 6px; }
+</style>
+
+<script>
+  const bootEl = document.getElementById('boot-lines');
+  const bootWrap = document.getElementById('boot');
+  const siteEl = document.getElementById('site-content');
+  const barWrap = document.getElementById('bar-wrap');
+  const bar = document.getElementById('bar');
+  const barPct = document.getElementById('bar-pct');
+
+  const lines = [
+    { t: 'rubenrc27 BIOS v2.6 — Full Stack Runtime', cls: 'l-dim', d: 30 },
+    { t: 'CPU: Java 21 LTS ......................... [ OK ]', cls: 'l-ok', d: 22 },
+    { t: 'MEM: React 18 / Next.js .................. [ OK ]', cls: 'l-ok', d: 22 },
+    { t: 'DEV: Flutter / Expo ...................... [ OK ]', cls: 'l-ok', d: 22 },
+    { t: 'NET: TCP/IP · DNS · DHCP ................. [ OK ]', cls: 'l-ok', d: 22 },
+    { t: 'HW:  Raspberry Pi detectado .............. [ OK ]', cls: 'l-ok', d: 22 },
+    { t: 'WARN: café insuficiente .................. [ !! ]', cls: 'l-warn', d: 22 },
+    { t: 'Montando skills.json...', cls: 'l-dim', d: 22 },
+    { t: 'Cargando proyectos: AppBackend, PatitoApp, HoyAParco...', cls: 'l-dim', d: 26 },
+  ];
+
+  function typeLine(line, cb) {
+    if (!bootEl) return;
+    const row = document.createElement('div');
+    row.className = line.cls;
+    bootEl.appendChild(row);
+    let i = 0;
+    const iv = setInterval(() => {
+      row.textContent = line.t.slice(0, i);
+      i++;
+      if (i > line.t.length) { clearInterval(iv); cb(); }
+    }, line.d);
+  }
+
+  function runLines(idx) {
+    if (idx >= lines.length) { runProgress(); return; }
+    typeLine(lines[idx], () => setTimeout(() => runLines(idx + 1), 90));
+  }
+
+  function runProgress() {
+    if (!barWrap || !bar || !barPct) return;
+    barWrap.style.display = 'block';
+    let p = 0;
+    const iv = setInterval(() => {
+      p += Math.random() * 14 + 6;
+      if (p >= 100) {
+        p = 100;
+        clearInterval(iv);
+        bar.style.width = '100%';
+        barPct.textContent = 'boot completo — cargando interfaz...';
+        setTimeout(reveal, 550);
+        return;
+      }
+      bar.style.width = p + '%';
+      barPct.textContent = Math.floor(p) + '%';
+    }, 90);
+  }
+
+  function reveal() {
+    if (bootWrap) bootWrap.classList.add('hide');
+    if (siteEl) siteEl.classList.add('show');
+    sessionStorage.setItem('hasBooted', 'true');
+    // After animation finishes, remove boot from DOM to free up resources
+    setTimeout(() => {
+      if (bootWrap && bootWrap.parentNode) {
+        bootWrap.parentNode.removeChild(bootWrap);
+      }
+    }, 600);
+  }
+
+  function boot() {
+    const hasBooted = sessionStorage.getItem('hasBooted');
+    if (hasBooted) {
+      if (bootWrap) bootWrap.style.display = 'none';
+      if (siteEl) {
+        siteEl.style.opacity = '1';
+        siteEl.style.transform = 'scale(1)';
+        siteEl.classList.add('show');
+      }
+      return;
+    }
+
+    if (bootEl) bootEl.innerHTML = '';
+    if (bar) bar.style.width = '0%';
+    if (barPct) barPct.textContent = '';
+    if (barWrap) barWrap.style.display = 'none';
+    if (bootWrap) bootWrap.classList.remove('hide');
+    if (siteEl) siteEl.classList.remove('show');
+    runLines(0);
+  }
+
+  boot();
+</script>

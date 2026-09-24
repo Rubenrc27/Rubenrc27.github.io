@@ -5,29 +5,46 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 <section class="hero" id="inicio">
-	<div class="blob-container">
-		<div class="blob b1"></div>
-		<div class="blob b2"></div>
-	</div>
+	<div class="cyber-grid"></div>
 	<div class="hero-inner container">
 		<div class="hero-content">
-			<p class="hero-eyebrow">{t('hero.greeting')}</p>
-			<h1 class="hero-name"><span class="grad">Rubén</span><br />Rodríguez<br />Cazorla</h1>
-			<p class="hero-sub"><Fragment set:html={t('hero.subtitle')} /><br /><span>Java · React · Flutter · y más</span></p>
-			<div class="hero-btns">
-				<a href="/cv.pdf" download class="btn btn-cv">{t('hero.cv')}</a>
-				<a href="https://github.com/Rubenrc27" target="_blank" class="btn btn-gh">GitHub</a>
-				<a href="https://www.linkedin.com/in/rub%C3%A9n-rodr%C3%ADguez-b52790237/" target="_blank" class="btn btn-li">LinkedIn</a>
-				<a href="mailto:ruben.rodriguez.cazorla@gmail.com" class="btn btn-em">Email</a>
-				<a href="https://rubenrc27.github.io/EsquivaCo/" target="_blank" class="btn btn-play">{t('hero.play')}</a>
+			<div class="terminal-header">
+				<span class="dot red"></span>
+				<span class="dot yellow"></span>
+				<span class="dot green"></span>
+				<span class="title">rrc27@sys: ~</span>
+			</div>
+			<div class="terminal-body">
+				<p class="hero-eyebrow">> {t('hero.greeting')}</p>
+				<h1 class="hero-name">
+					<div class="glitch-wrapper"><span class="glitch" data-text="Rubén">Rubén</span></div><br />
+					<div class="glitch-wrapper"><span class="glitch" data-text="Rodríguez">Rodríguez</span></div><br />
+					<div class="glitch-wrapper"><span class="glitch" data-text="Cazorla">Cazorla</span></div>
+				</h1>
+				<p class="hero-sub">> <Fragment set:html={t('hero.subtitle')} /><br /><span class="blink-text">_ Java · React · Flutter _</span></p>
+				
+				<div class="hero-btns">
+					<a href="/cv.pdf" download class="cyber-btn primary">
+						<span class="btn-text">[{t('hero.cv')}]</span>
+						<span class="btn-glitch"></span>
+					</a>
+					<a href="https://github.com/Rubenrc27" target="_blank" class="cyber-btn secondary">
+						<span class="btn-text">[GITHUB]</span>
+					</a>
+					<a href="https://www.linkedin.com/in/rub%C3%A9n-rodr%C3%ADguez-b52790237/" target="_blank" class="cyber-btn secondary">
+						<span class="btn-text">[LINKEDIN]</span>
+					</a>
+					<a href="https://rubenrc27.github.io/EsquivaCo/" target="_blank" class="cyber-btn accent">
+						<span class="btn-text">>{t('hero.play')}<</span>
+					</a>
+				</div>
 			</div>
 		</div>
 		<div class="hero-visual">
-			<div class="photo-ring"></div>
-			<!-- Placeholder for photo - user can replace it later or keep current base64 if they want -->
-			<!-- I'll use a stylized div for now since the original was a massive base64 -->
-			<div class="photo-placeholder">
+			<div class="cyber-frame">
+				<div class="frame-corners"></div>
 				<img src="/me.jpg" alt="Rubén Rodríguez Cazorla" class="profile-img" />
+				<div class="scanline"></div>
 			</div>
 		</div>
 	</div>
@@ -41,95 +58,162 @@ const t = useTranslations(lang);
 		position: relative;
 		overflow: hidden;
 		padding-top: 5rem;
+		background: radial-gradient(circle at center, rgba(6, 182, 212, 0.05) 0%, transparent 70%);
 	}
-	.blob-container {
+	.cyber-grid {
 		position: absolute;
 		inset: 0;
+		background-image: 
+			linear-gradient(rgba(74, 222, 128, 0.1) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(74, 222, 128, 0.1) 1px, transparent 1px);
+		background-size: 50px 50px;
+		transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+		animation: grid-move 20s linear infinite;
+		opacity: 0.3;
 		z-index: 0;
-		filter: blur(100px);
-		opacity: 0.15;
 		pointer-events: none;
 	}
-	.blob {
-		position: absolute;
-		border-radius: 50%;
-		animation: drift 20s infinite alternate ease-in-out;
+	@keyframes grid-move {
+		0% { background-position: 0 0; }
+		100% { background-position: 0 50px; }
 	}
-	.b1 {
-		width: 40vw;
-		height: 40vw;
-		background: var(--accent-4);
-		top: -10%;
-		right: -5%;
-	}
-	.b2 {
-		width: 30vw;
-		height: 30vw;
-		background: var(--accent-5);
-		bottom: 10%;
-		left: 5%;
-		animation-delay: -5s;
-	}
-	@keyframes drift {
-		from { transform: translate(0, 0) scale(1); }
-		to { transform: translate(50px, 50px) scale(1.1); }
-	}
+	
 	.hero-inner {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		gap: 4rem;
 		z-index: 1;
+		width: 100%;
 	}
 	.hero-content {
 		flex: 1;
+		background: rgba(11, 17, 21, 0.8);
+		border: 1px solid var(--border);
+		border-radius: 4px;
+		box-shadow: 0 0 20px rgba(6, 182, 212, 0.1);
+		backdrop-filter: blur(10px);
+		position: relative;
 	}
+	
+	.terminal-header {
+		background: #090e11;
+		padding: 8px 16px;
+		border-bottom: 1px solid var(--border);
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+	.dot {
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+	}
+	.dot.red { background: var(--accent-5); box-shadow: 0 0 5px var(--accent-5); }
+	.dot.yellow { background: var(--accent-4); box-shadow: 0 0 5px var(--accent-4); }
+	.dot.green { background: var(--accent-3); box-shadow: 0 0 5px var(--accent-3); }
+	
+	.terminal-header .title {
+		margin-left: auto;
+		color: var(--muted);
+		font-size: 0.8rem;
+		font-family: var(--font-mono);
+	}
+	
+	.terminal-body {
+		padding: 2rem;
+	}
+
 	.hero-eyebrow {
 		font-family: var(--font-mono);
-		font-size: 0.8rem;
-		color: var(--accent-3);
-		text-transform: uppercase;
-		letter-spacing: 0.2em;
+		font-size: 1rem;
+		color: var(--accent-1);
 		margin-bottom: 1rem;
 	}
 	.hero-name {
-		font-size: clamp(2.5rem, 10vw, 6rem);
+		font-size: clamp(2rem, 8vw, 5rem);
 		font-weight: 800;
-		line-height: 0.95;
+		line-height: 1;
 		margin-bottom: 1.5rem;
-	}
-	.grad {
-		background: linear-gradient(135deg, var(--accent-1), var(--accent-4));
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
+		text-transform: uppercase;
+		letter-spacing: -2px;
 	}
 	.hero-sub {
-		font-size: 1.25rem;
+		font-size: 1.1rem;
 		color: var(--muted);
 		margin-bottom: 2.5rem;
+		font-family: var(--font-mono);
 	}
 	.hero-sub strong {
-		color: var(--text);
+		color: var(--accent-2);
 	}
+	.blink-text {
+		color: var(--text);
+		animation: blink-caret 1s step-end infinite;
+	}
+	@keyframes blink-caret {
+		50% { opacity: 0; }
+	}
+	
 	.hero-btns {
 		display: flex;
 		gap: 1rem;
 		flex-wrap: wrap;
 	}
-	.btn {
-		padding: 0.8rem 1.6rem;
-		border-radius: 6px;
+	.cyber-btn {
+		position: relative;
+		padding: 0.8rem 1.5rem;
 		font-family: var(--font-mono);
-		font-size: 0.8rem;
-		font-weight: 700;
+		font-size: 0.9rem;
+		font-weight: bold;
+		text-transform: uppercase;
+		background: transparent;
+		cursor: pointer;
+		overflow: hidden;
+		transition: all 0.2s ease;
+		display: inline-block;
+	}
+	.cyber-btn::before {
+		content: '';
+		position: absolute;
+		top: 0; left: 0;
+		width: 10px; height: 100%;
+		background: rgba(255,255,255,0.1);
+		transform: skewX(-15deg) translateX(-20px);
 		transition: all 0.3s ease;
 	}
-	.btn-gh { background: var(--text); color: var(--bg); }
-	.btn-cv { background: var(--accent-2); color: #0a0a0f; }
-	.btn-li { background: var(--accent-4); color: white; }
-	.btn-em { border: 1px solid var(--border); color: var(--text); }
-	.btn-play { background: var(--accent-3); color: #0a0a0f; }
-	.btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+	.cyber-btn:hover::before {
+		transform: skewX(-15deg) translateX(150px);
+	}
+	
+	.cyber-btn.primary {
+		color: #05080a;
+		background: var(--accent-1);
+		border: 1px solid var(--accent-1);
+		box-shadow: 0 0 15px rgba(74, 222, 128, 0.4);
+	}
+	.cyber-btn.primary:hover {
+		box-shadow: 0 0 25px rgba(74, 222, 128, 0.7);
+		transform: translateY(-2px);
+	}
+	
+	.cyber-btn.secondary {
+		color: var(--accent-2);
+		border: 1px solid var(--accent-2);
+	}
+	.cyber-btn.secondary:hover {
+		background: rgba(6, 182, 212, 0.1);
+		box-shadow: inset 0 0 10px rgba(6, 182, 212, 0.3);
+	}
+	
+	.cyber-btn.accent {
+		color: var(--accent-5);
+		border: 1px dashed var(--accent-5);
+	}
+	.cyber-btn.accent:hover {
+		background: rgba(244, 63, 94, 0.1);
+		border-style: solid;
+	}
 
 	.hero-visual {
 		position: relative;
@@ -139,76 +223,75 @@ const t = useTranslations(lang);
 		align-items: center;
 		justify-content: center;
 	}
-	.photo-placeholder {
-		width: 280px;
-		height: 280px;
-		background: var(--card);
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border: 1px solid var(--border);
-		z-index: 1;
-		overflow: hidden; /* Added to clip the image */
+	.cyber-frame {
+		position: relative;
+		width: 300px;
+		height: 300px;
+		border: 2px solid var(--accent-2);
+		background: var(--surface);
+		overflow: hidden;
+		box-shadow: 0 0 30px rgba(6, 182, 212, 0.2);
+	}
+	.frame-corners {
+		position: absolute;
+		inset: -5px;
+		border: 2px solid var(--accent-1);
+		clip-path: polygon(
+			0 15px, 15px 0,
+			calc(100% - 15px) 0, 100% 15px,
+			100% calc(100% - 15px), calc(100% - 15px) 100%,
+			15px 100%, 0 calc(100% - 15px)
+		);
+		pointer-events: none;
+		z-index: 2;
 	}
 	.profile-img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 		display: block;
-		border-radius: 50%;
-		transition: transform 0.3s ease;
+		filter: contrast(1.2) sepia(0.3) hue-rotate(150deg) saturate(1.5); /* Techy filter */
+		transition: filter 0.3s ease;
 	}
-	.profile-img:hover {
-		transform: scale(1.05);
+	.cyber-frame:hover .profile-img {
+		filter: contrast(1.1) sepia(0) hue-rotate(0) saturate(1); /* Reveal original on hover */
 	}
-	.photo-ring {
+	.scanline {
 		position: absolute;
-		inset: 0;
-		border: 1px solid rgba(255,255,255,0.05);
-		border-radius: 50%;
-		animation: spin 30s linear infinite;
+		top: 0; left: 0;
+		width: 100%; height: 5px;
+		background: rgba(74, 222, 128, 0.5);
+		box-shadow: 0 0 10px var(--accent-1);
+		opacity: 0.6;
+		animation: scan 4s linear infinite;
+		z-index: 3;
+		pointer-events: none;
 	}
-	.photo-ring::before {
-		content: '';
-		position: absolute;
-		top: -5px;
-		left: 50%;
-		width: 10px;
-		height: 10px;
-		background: var(--accent-2);
-		border-radius: 50%;
-		box-shadow: 0 0 15px var(--accent-2);
-	}
-	@keyframes spin {
-		from { transform: rotate(0deg); }
-		to { transform: rotate(360deg); }
+	@keyframes scan {
+		0% { top: -10%; }
+		100% { top: 110%; }
 	}
 
 	@media (max-width: 900px) {
 		.hero-inner {
 			flex-direction: column-reverse;
-			text-align: center;
+			text-align: left;
 			gap: 3rem;
-			width: 100%;
 		}
 		.hero-content {
 			width: 100%;
 		}
-		.hero-name {
-			font-size: clamp(1.8rem, 9vw, 4rem);
+		.hero-btns {
+			justify-content: flex-start;
 		}
-		.hero-btns { 
-			justify-content: center; 
-		}
-		.hero-visual { 
-			width: 250px; 
-			height: 250px;
+		.hero-visual {
+			width: 280px;
+			height: 280px;
 			margin: 0 auto;
 		}
-		.photo-placeholder { 
-			width: 200px; 
-			height: 200px; 
+		.cyber-frame {
+			width: 250px;
+			height: 250px;
 		}
 	}
 </style>
