@@ -41,6 +41,51 @@ const t = useTranslations(lang);
 				<a href="https://rubenrc27.github.io/EsquivaCo/" target="_blank" class="btn btn-outline">
 					<span class="btn-content">{t('hero.play')}</span>
 				</a>
+				<div class="hero-tools-dropdown">
+					<button type="button" class="btn btn-tools" id="heroToolsToggle" aria-haspopup="true" aria-expanded="false">
+						<span class="btn-content">
+							<svg class="tool-btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+							</svg>
+							<span>{t('hero.tools')}</span>
+							<svg class="chevron-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+						</span>
+					</button>
+					<div class="hero-tools-menu" id="heroToolsMenu">
+						<a href="https://rubenrc27.github.io/jwt-decoder/" target="_blank" rel="noopener noreferrer" class="hero-tool-link">
+							<div class="hero-tool-icon">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+									<path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+								</svg>
+							</div>
+							<div class="hero-tool-meta">
+								<div class="hero-tool-title">
+									<span>JWT Decoder</span>
+									<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+								</div>
+								<span class="hero-tool-desc">{t('tools.jwt.desc')}</span>
+							</div>
+						</a>
+						<a href="https://rubenrc27.github.io/Texto-en-una-linea/" target="_blank" rel="noopener noreferrer" class="hero-tool-link">
+							<div class="hero-tool-icon">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<line x1="21" y1="10" x2="3" y2="10"/>
+									<line x1="21" y1="6" x2="3" y2="6"/>
+									<line x1="21" y1="14" x2="3" y2="14"/>
+									<line x1="21" y1="18" x2="3" y2="18"/>
+								</svg>
+							</div>
+							<div class="hero-tool-meta">
+								<div class="hero-tool-title">
+									<span>Texto en una línea</span>
+									<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+								</div>
+								<span class="hero-tool-desc">{t('tools.text.desc')}</span>
+							</div>
+						</a>
+					</div>
+				</div>
 			</div>
 		</div>
 		
@@ -258,6 +303,139 @@ const t = useTranslations(lang);
 		background: rgba(0, 255, 204, 0.1);
 	}
 
+	.hero-tools-dropdown {
+		position: relative;
+		display: inline-flex;
+	}
+	.btn-tools {
+		background: linear-gradient(135deg, var(--accent-3), var(--accent-4));
+		border: none;
+		cursor: pointer;
+		font-family: inherit;
+		color: inherit;
+	}
+	.btn-tools .btn-content {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		background: var(--bg);
+		color: var(--text);
+	}
+	.btn-tools:hover .btn-content,
+	.hero-tools-dropdown.open .btn-tools .btn-content {
+		background: rgba(0, 255, 204, 0.08);
+		color: #fff;
+	}
+	.tool-btn-icon {
+		color: var(--accent-3);
+		transition: transform 0.3s ease;
+	}
+	.btn-tools:hover .tool-btn-icon,
+	.hero-tools-dropdown.open .tool-btn-icon {
+		transform: rotate(15deg);
+	}
+	.chevron-icon {
+		transition: transform 0.3s ease;
+		color: var(--muted);
+	}
+	.hero-tools-dropdown:hover .chevron-icon,
+	.hero-tools-dropdown.open .chevron-icon {
+		transform: rotate(180deg);
+		color: var(--accent-3);
+	}
+
+	.hero-tools-menu {
+		position: absolute;
+		top: calc(100% + 10px);
+		left: 0;
+		min-width: 290px;
+		background: rgba(12, 16, 22, 0.95);
+		backdrop-filter: blur(25px);
+		-webkit-backdrop-filter: blur(25px);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 16px;
+		padding: 0.6rem;
+		box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 102, 255, 0.12);
+		z-index: 100;
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(10px) scale(0.96);
+		transform-origin: top left;
+		transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+	}
+	.hero-tools-dropdown:hover .hero-tools-menu,
+	.hero-tools-dropdown.open .hero-tools-menu {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0) scale(1);
+	}
+	.hero-tool-link {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.85rem;
+		padding: 0.75rem 0.9rem;
+		border-radius: 12px;
+		border: 1px solid transparent;
+		background: rgba(255, 255, 255, 0.02);
+		transition: all 0.25s ease;
+		text-align: left;
+		text-decoration: none;
+	}
+	.hero-tool-link:hover {
+		background: rgba(255, 255, 255, 0.06);
+		border-color: rgba(0, 255, 204, 0.25);
+		transform: translateX(4px);
+	}
+	.hero-tool-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		border-radius: 10px;
+		background: rgba(0, 102, 255, 0.12);
+		color: var(--accent-3);
+		border: 1px solid rgba(0, 255, 204, 0.2);
+		flex-shrink: 0;
+		transition: all 0.25s ease;
+	}
+	.hero-tool-link:hover .hero-tool-icon {
+		background: linear-gradient(135deg, var(--accent-4), var(--accent-3));
+		color: #fff;
+		box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+	}
+	.hero-tool-meta {
+		display: flex;
+		flex-direction: column;
+		gap: 0.15rem;
+		flex: 1;
+		min-width: 0;
+	}
+	.hero-tool-title {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-weight: 700;
+		font-size: 0.95rem;
+		color: #fff;
+	}
+	.hero-tool-title svg {
+		color: var(--muted);
+		transition: transform 0.2s ease, color 0.2s ease;
+	}
+	.hero-tool-link:hover .hero-tool-title svg {
+		transform: translate(2px, -2px);
+		color: var(--accent-3);
+	}
+	.hero-tool-desc {
+		font-size: 0.78rem;
+		color: var(--muted);
+		line-height: 1.35;
+	}
+
 	/* PREMIUM VISUAL RING */
 	.hero-visual {
 		position: relative;
@@ -354,9 +532,45 @@ const t = useTranslations(lang);
 			width: 320px; 
 			height: 320px;
 		}
+		.hero-tools-menu {
+			left: 50%;
+			transform: translateX(-50%) translateY(10px) scale(0.96);
+			transform-origin: top center;
+			max-width: calc(100vw - 2rem);
+		}
+		.hero-tools-dropdown:hover .hero-tools-menu,
+		.hero-tools-dropdown.open .hero-tools-menu {
+			transform: translateX(-50%) translateY(0) scale(1);
+		}
 		.photo-inner {
 			width: 220px;
 			height: 220px;
 		}
 	}
 </style>
+
+<script>
+	const toolsToggle = document.getElementById('heroToolsToggle');
+	const toolsDropdown = toolsToggle?.closest('.hero-tools-dropdown');
+
+	toolsToggle?.addEventListener('click', (e) => {
+		e.stopPropagation();
+		const isOpen = toolsDropdown?.classList.toggle('open');
+		toolsToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+	});
+
+	document.addEventListener('click', (e) => {
+		if (!toolsDropdown?.contains(e.target as Node)) {
+			toolsDropdown?.classList.remove('open');
+			toolsToggle?.setAttribute('aria-expanded', 'false');
+		}
+	});
+
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && toolsDropdown?.classList.contains('open')) {
+			toolsDropdown.classList.remove('open');
+			toolsToggle?.setAttribute('aria-expanded', 'false');
+			toolsToggle?.focus();
+		}
+	});
+</script>
